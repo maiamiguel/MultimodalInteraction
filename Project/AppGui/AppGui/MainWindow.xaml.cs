@@ -21,28 +21,11 @@ namespace AppGui
         public MainWindow()
         {
 
-            IWebDriver driver = new ChromeDriver();
+            
 
-            //Navigate to google page
-            //driver.Navigate().GoToUrl("http:www.google.com");
-            driver.Navigate().GoToUrl("http://booking.com");
-
-            //Find the Search text box UI Element
-            //IWebElement element = driver.FindElement(By.Name("q"));
-            IWebElement element = driver.FindElement(By.Name("ss"));
-            IWebElement element1 = driver.FindElement(By.ClassName("sb-searchbox__button"));
-
-            //Perform Ops
-            //element.SendKeys("executeautomation");
-            element.SendKeys("Porto");
-            element1.Click();
-
-            //Close the browser
-            //driver.Close();
-
-            //mmiC = new MmiCommunication("localhost",8000, "User1", "GUI");
-            //mmiC.Message += MmiC_Message;
-            //mmiC.Start();
+            mmiC = new MmiCommunication("localhost",8000, "User1", "GUI");
+            mmiC.Message += MmiC_Message;
+            mmiC.Start();
 
         }
 
@@ -53,18 +36,49 @@ namespace AppGui
             var com = doc.Descendants("command").FirstOrDefault().Value;
             dynamic json = JsonConvert.DeserializeObject(com);
 
-            Shape _s = null;
-            switch ((string)json.recognized[0].ToString())
+            String _s = (string)json.recognized[0].ToString();
+
+            IWebDriver driver = new ChromeDriver();
+
+            //Navigate to google page
+            driver.Navigate().GoToUrl("http://booking.com");
+
+            //Find the Search text box UI Element
+            IWebElement element = driver.FindElement(By.Name("ss"));
+            IWebElement element1 = driver.FindElement(By.ClassName("sb-searchbox__button"));
+
+            Console.WriteLine(_s);
+            switch (_s)
             {
-                case "SQUARE": _s = rectangle;
+                case "ESPANHA": _s = "Espanha";
+                    
+
+                    //Perform Ops
+                    element.SendKeys(_s);
+                    element1.Click();
+
+                    //Close the browser
+                    //driver.Close();
                     break;
-                case "CIRCLE": _s = circle;
+                case "PORTUGAL": _s = "portugal";
+                    //Perform Ops
+                    element.SendKeys(_s);
+                    element1.Click();
+
+                    //Close the browser
+                    //driver.Close();
                     break;
-                case "TRIANGLE": _s = triangle;
+                case "ITALY": _s = "italy";
+                    //Perform Ops
+                    element.SendKeys(_s);
+                    element1.Click();
+
+                    //Close the browser
+                    //driver.Close();
                     break;
             }
 
-            App.Current.Dispatcher.Invoke(() =>
+            /*App.Current.Dispatcher.Invoke(() =>
             {
                 switch ((string)json.recognized[1].ToString())
                 {
@@ -81,7 +95,7 @@ namespace AppGui
                         _s.Fill = Brushes.Orange;
                         break;
                 }
-            });
+            });*/
         }
     }
 }

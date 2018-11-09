@@ -1,21 +1,15 @@
 ﻿<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
 	<rule id="rootRule" scope="public">
-	  <item>
-		  <item>
-			<ruleref uri="#pais"/>
-			<tag>out.shape=rules.latest();</tag>
-		  </item>
-		  <item>
-			<ruleref uri="#color"/>
-			<tag>out.color=rules.latest();</tag>
-		  </item>
-	  </item>
+		<item>
+		<ruleref uri="#country"/>
+		<tag>out.country=rules.latest();</tag>
+		</item>
 	</rule>
-	<rule id="pais">
+	<rule id="country">
 	  <one-of>
 		<item>portugal<tag>out="PORTUGAL"</tag></item>
-		<item>espanha<tag>out="SPAIN"</tag></item>
+		<item>espanha<tag>out="ESPANHA"</tag></item>
 		<item>itália<tag>out="ITALY"</tag></item>
 	  </one-of>
 	</rule>
