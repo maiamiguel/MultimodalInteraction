@@ -50,52 +50,47 @@ namespace AppGui
             Console.WriteLine(_s);
             switch (_s)
             {
-                case "ESPANHA": _s = "Espanha";
-                    
-
-                    //Perform Ops
-                    element.SendKeys(_s);
-                    element1.Click();
-
-                    //Close the browser
-                    //driver.Close();
+                case "SEARCH":
+                    Console.WriteLine("pesquisaaaaaaaaaa");
                     break;
-                case "PORTUGAL": _s = "portugal";
-                    //Perform Ops
-                    element.SendKeys(_s);
-                    element1.Click();
-
-                    //Close the browser
-                    //driver.Close();
-                    break;
-                case "ITALY": _s = "italy";
-                    //Perform Ops
-                    element.SendKeys(_s);
-                    element1.Click();
-
-                    //Close the browser
-                    //driver.Close();
+                case "ACTIVATE":
+                    Console.WriteLine("Activar sistema");
                     break;
             }
 
-            /*App.Current.Dispatcher.Invoke(() =>
+            App.Current.Dispatcher.Invoke(() =>
             {
                 switch ((string)json.recognized[1].ToString())
                 {
-                    case "GREEN":
-                        _s.Fill = Brushes.Green;
+                    case "SPAIN":
+                        _s = "Espanha";
+                        //Perform Ops
+                        element.SendKeys(_s);
+                        element1.Click();
+
+                        //Close the browser
+                        //driver.Close();
                         break;
-                    case "BLUE":
-                        _s.Fill = Brushes.Blue;
+                    case "PORTUGAL":
+                        _s = "portugal";
+                        //Perform Ops
+                        element.SendKeys(_s);
+                        element1.Click();
+
+                        //Close the browser
+                        //driver.Close();
                         break;
-                    case "RED":
-                        _s.Fill = Brushes.Red;
-                        break;
-                    case "ORANGE":
-                        _s.Fill = Brushes.Orange;
+                    case "ITALY":
+                        _s = "italy";
+                        //Perform Ops
+                        element.SendKeys(_s);
+                        element1.Click();
+
+                        //Close the browser
+                        //driver.Close();
                         break;
                 }
-            });*/
+            });
         }
     }
 }

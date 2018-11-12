@@ -1,24 +1,31 @@
 ﻿<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
 	<rule id="rootRule" scope="public">
-		<item>
-		<ruleref uri="#country"/>
-		<tag>out.country=rules.latest();</tag>
-		</item>
+	  <item>
+		  <item>
+			<ruleref uri="#search"/>
+			<tag>out.search=rules.latest();</tag>
+		  </item>
+		  <item>
+			<ruleref uri="#country"/>
+			<tag>out.country=rules.latest();</tag>
+		  </item>
+	  </item>
 	</rule>
-	<rule id="country">
+  
+	<rule id="search">
 	  <one-of>
-		<item>portugal<tag>out="PORTUGAL"</tag></item>
-		<item>espanha<tag>out="ESPANHA"</tag></item>
-		<item>itália<tag>out="ITALY"</tag></item>
+		<item>pesquisar<tag>out="SEARCH"</tag></item>
+		<item>pesquisa<tag>out="SEARCH1"</tag></item>
+		<item>quero pesquisar<tag>out="SEARCH2"</tag></item>
 	  </one-of>
 	</rule>
-	<rule id="color">
+  
+	<rule id="country">
 	  <one-of>
-		<item>verde<tag>out="GREEN"</tag></item>
-		<item>azul<tag>out="BLUE"</tag></item>
-		<item>vermelho<tag>out="RED"</tag></item>
-    <item>laranja<tag>out="ORANGE"</tag></item>
+		<item>Portugal<tag>out="PORTUGAL"</tag></item>
+		<item>Espanha<tag>out="SPAIN"</tag></item>
+		<item>Itália<tag>out="ITALY"</tag></item>
 	  </one-of>
 	</rule>
 </grammar>
