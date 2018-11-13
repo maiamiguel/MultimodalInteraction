@@ -20,23 +20,23 @@ namespace AppGui
         private MmiCommunication mmiC;
         public MainWindow()
         {
-
-            
-
             mmiC = new MmiCommunication("localhost",8000, "User1", "GUI");
             mmiC.Message += MmiC_Message;
             mmiC.Start();
-
         }
 
         private void MmiC_Message(object sender, MmiEventArgs e)
         {
-            Console.WriteLine(e.Message);
+            
             var doc = XDocument.Parse(e.Message);
             var com = doc.Descendants("command").FirstOrDefault().Value;
             dynamic json = JsonConvert.DeserializeObject(com);
 
+            Shape shape = null;
             String _s = (string)json.recognized[0].ToString();
+            String _s1 = (string)json.recognized[1].ToString();
+            Console.WriteLine("_S  " + _s);
+            Console.WriteLine("_S1  " + _s1);
 
             IWebDriver driver = new ChromeDriver();
 
@@ -55,14 +55,17 @@ namespace AppGui
                     break;
                 case "ACTIVATE":
                     Console.WriteLine("Activar sistema");
+                    shape.Fill = Brushes.Green;
                     break;
             }
 
             App.Current.Dispatcher.Invoke(() =>
             {
-                switch ((string)json.recognized[1].ToString())
+                switch (_s1)
                 {
                     case "SPAIN":
+                        //Console.WriteLine(_s);
+                        //Console.WriteLine(_s1);
                         _s = "Espanha";
                         //Perform Ops
                         element.SendKeys(_s);
