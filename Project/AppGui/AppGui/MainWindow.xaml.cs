@@ -27,73 +27,29 @@ namespace AppGui
 
         private void MmiC_Message(object sender, MmiEventArgs e)
         {
-            
+            Console.WriteLine(e.Message);
             var doc = XDocument.Parse(e.Message);
             var com = doc.Descendants("command").FirstOrDefault().Value;
             dynamic json = JsonConvert.DeserializeObject(com);
 
             Shape shape = null;
+
+            //first command
             String _s = (string)json.recognized[0].ToString();
-            String _s1 = (string)json.recognized[1].ToString();
-            Console.WriteLine("_S  " + _s);
-            Console.WriteLine("_S1  " + _s1);
+            Console.WriteLine("JSON recognized" + _s);
 
-            IWebDriver driver = new ChromeDriver();
-
-            //Navigate to google page
-            driver.Navigate().GoToUrl("http://booking.com");
-
-            //Find the Search text box UI Element
-            IWebElement element = driver.FindElement(By.Name("ss"));
-            IWebElement element1 = driver.FindElement(By.ClassName("sb-searchbox__button"));
-
-            Console.WriteLine(_s);
-            switch (_s)
-            {
+            switch (_s){
                 case "SEARCH":
-                    Console.WriteLine("pesquisaaaaaaaaaa");
+                    Console.WriteLine("PESQUISAR  -> " + (string)json.recognized[1].ToString());
+                    ProcessingComandsFunctions.OpenProgram((string)json.recognized[1].ToString());
                     break;
-                case "ACTIVATE":
+                case "HELP":
                     Console.WriteLine("Activar sistema");
+                    //Tentativa de meter o círculo a verde quando o sistema está a fornecer ajuda mas não funciona.
+                    shape = circle;
                     shape.Fill = Brushes.Green;
                     break;
             }
-
-            App.Current.Dispatcher.Invoke(() =>
-            {
-                switch (_s1)
-                {
-                    case "SPAIN":
-                        //Console.WriteLine(_s);
-                        //Console.WriteLine(_s1);
-                        _s = "Espanha";
-                        //Perform Ops
-                        element.SendKeys(_s);
-                        element1.Click();
-
-                        //Close the browser
-                        //driver.Close();
-                        break;
-                    case "PORTUGAL":
-                        _s = "portugal";
-                        //Perform Ops
-                        element.SendKeys(_s);
-                        element1.Click();
-
-                        //Close the browser
-                        //driver.Close();
-                        break;
-                    case "ITALY":
-                        _s = "italy";
-                        //Perform Ops
-                        element.SendKeys(_s);
-                        element1.Click();
-
-                        //Close the browser
-                        //driver.Close();
-                        break;
-                }
-            });
         }
     }
 }
