@@ -9,46 +9,127 @@ using System.Threading.Tasks;
 namespace AppGui{
     class ProcessingComandsFunctions{
 
-        public static void OpenProgram(String country){
-            //Selenium
-            IWebDriver driver = new ChromeDriver();
+        private static Boolean firstTime = true;
+        private static IWebDriver driver;
+        private static IWebElement element;
+        private static IWebElement element1;
 
-            driver.Navigate().GoToUrl("http://booking.com");        //Navigate to booking page
+        public static void AcceptCommand(String type, String country){
+            
+            if (firstTime){
+                driver = new ChromeDriver();
+                firstTime = false;                
+            }
 
-            IWebElement element = driver.FindElement(By.Name("ss"));    //Find the Search text box UI Element
-            IWebElement element1 = driver.FindElement(By.ClassName("sb-searchbox__button"));    //Click the search button
+            // Selenium
+
+            
 
             String countryName = null;
 
+            if (type == "VOO")
+            {
+                driver.Navigate().GoToUrl("https://booking.kayak.com");
+                IWebElement destination = driver.FindElement(By.CssSelector("[id$=destination]"));
+                IWebElement initDate = driver.FindElement(By.CssSelector("[id$=depart-input]"));
+                IWebElement finDate = driver.FindElement(By.CssSelector("[id$=return-input]"));
+            }
+            else if (type == "HOTEL")
+            {
+                driver.Navigate().GoToUrl("http://booking.com");        // Navigate to booking page
+                element = driver.FindElement(By.Name("ss"));    //Find the Search text box UI Element
+                element1 = driver.FindElement(By.ClassName("sb-searchbox__button"));    // Click the search button
+            }
+            else if (type == "CLOSE")
+            {
+                Console.WriteLine("FECHAR O BROWSER!");
+                driver.Close();
+                firstTime = true;
+            }
+
             switch (country){
                 case "SPAIN":
-                    //Console.WriteLine(_s);
-                    //Console.WriteLine(_s1);
                     countryName = "Espanha";
-                    //Perform Ops
                     element.SendKeys(countryName);
                     element1.Click();
-
-                    //Close the browser
-                    //driver.Close();
                     break;
+
                 case "PORTUGAL":
-                    countryName = "portugal";
-                    //Perform Ops
+                    countryName = "Portugal";
                     element.SendKeys(countryName);
                     element1.Click();
-
-                    //Close the browser
-                    //driver.Close();
                     break;
+
                 case "ITALY":
-                    countryName = "italy";
-                    //Perform Ops
+                    countryName = "Itália";
                     element.SendKeys(countryName);
                     element1.Click();
+                    break;
 
-                    //Close the browser
-                    //driver.Close();
+                case "SWITZERLAND":
+                    countryName = "Suíça";
+                    element.SendKeys(countryName);
+                    element1.Click();
+                    break;
+
+                case "HOLAND":
+                    countryName = "Holanda";
+                    element.SendKeys(countryName);
+                    element1.Click();
+                    break;
+
+                case "GERMAN":
+                    countryName = "Alemanha";
+                    element.SendKeys(countryName);
+                    element1.Click();
+                    break;
+
+                case "FRANCE":
+                    countryName = "França";
+                    element.SendKeys(countryName);
+                    element1.Click();
+                    break;
+
+                case "AUSTRIA":
+                    countryName = "Aústria";
+                    element.SendKeys(countryName);
+                    element1.Click();
+                    break;
+
+                case "CROATIA":
+                    countryName = "Croácia";
+                    element.SendKeys(countryName);
+                    element1.Click();
+                    break;
+
+                case "SERVIA":
+                    countryName = "Sérvia";
+                    element.SendKeys(countryName);
+                    element1.Click();
+                    break;
+
+                case "GREECE":
+                    countryName = "Grécia";
+                    element.SendKeys(countryName);
+                    element1.Click();
+                    break;
+
+                case "BELGIUM":
+                    countryName = "Bélgica";
+                    element.SendKeys(countryName);
+                    element1.Click();
+                    break;
+
+                case "POLAND":
+                    countryName = "Polónia";
+                    element.SendKeys(countryName);
+                    element1.Click();
+                    break;
+
+                case "HUNGARY":
+                    countryName = "Hungria";
+                    element.SendKeys(countryName);
+                    element1.Click();
                     break;
             }
         }

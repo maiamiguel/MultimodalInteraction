@@ -7,6 +7,10 @@
 			        <ruleref uri="#search"/>
 			        <tag>out.search=rules.latest();</tag>
 		      </item>
+          <item>
+			        <ruleref uri="#type"/>
+			        <tag>out.type=rules.latest();</tag>
+		      </item>
 		      <item>
 			        <ruleref uri="#country"/>
 			        <tag>out.country=rules.latest();</tag>
@@ -18,22 +22,73 @@
             <tag>out.activate=rules.latest()</tag>
         </item>
       </item>
+      <item>
+          <item>
+            <ruleref uri="#help"/>
+        </item>
+      </item>
+      <item>
+        <item>
+          <ruleref uri="#close"/>
+          <tag>out.close=rules.latest()</tag>
+        </item>
+      </item>
     </one-of>
 	</rule>
   
-  <rule id="activate">
+  <rule id="type">
+	  <one-of>
+		<item>voos em<tag>out="VOO"</tag></item>
+    <item>voos para<tag>out="VOO"</tag></item>
+		<item>voo para<tag>out="VOO"</tag></item>
+    <item>voo em<tag>out="VOO"</tag></item>
+		<item>hóteis em<tag>out="HOTEL"</tag></item>
+    <item>hóteis<tag>out="HOTEL"</tag></item>
+    <item>Hotel<tag>out="HOTEL"</tag></item>
+    <item>Hotel em<tag>out="HOTEL"</tag></item>
+    <item>alojamento<tag>out="HOTEL"</tag></item>
+    <item>alojamento em<tag>out="HOTEL"</tag></item>
+    <item>estadia em<tag>out="HOTEL"</tag></item>
+    <item>estadia<tag>out="HOTEL"</tag></item>
+	  </one-of>
+    
+	</rule>
+    
+  <rule id="help">
 	  <one-of>
 		<item>Ajuda-me</item>
 		<item>Vamos viajar</item>
 		<item>Preciso de ajuda</item>
     <item>Quero ajuda</item>
 	  </one-of>
-    <tag>out="HELP"</tag>
+    <tag>out.action="HELP"</tag>
 	</rule>
+  
+  <rule id="activate">
+	  <one-of>
+		<item>Oh booking</item>
+		<item>Ó booking</item>
+		<item>Activar</item>
+	  </one-of>
+    <tag>out="ACTIVATE"</tag>
+	</rule>
+
+  <rule id="close">
+    <one-of>
+      <item>Fechar o browser</item>
+      <item>Fecha</item>
+      <item>Fecha o browser</item>
+      <item>Xau</item>
+      <item>Adeus</item>
+      <item>Obrigado, adeus</item>
+      <item>Sair</item>
+    </one-of>
+    <tag>out="CLOSE"</tag>
+  </rule>
     
 	<rule id="search">
 	  <one-of>
-		<item>pesquisar voos para</item>
+		<item>pesquisar</item>
 		<item>pesquisa</item>
 		<item>quero pesquisar</item>
 	  </one-of>
