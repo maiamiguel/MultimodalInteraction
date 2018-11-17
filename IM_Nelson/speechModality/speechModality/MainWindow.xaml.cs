@@ -32,10 +32,22 @@ namespace speechModality
 
         private void _sm_Recognized(object sender, SpeechEventArg e)
         {
-            result.Text = e.Text;
+            /*result.Text = e.Text;
             confidence.Text = e.Confidence+"";
             if (e.Final) result.FontWeight = FontWeights.Bold;
-            else result.FontWeight = FontWeights.Normal;
+            else result.FontWeight = FontWeights.Normal;*/
+
+            this.Dispatcher.Invoke(() =>
+            {
+                if (e.AssistantActivation)
+                {
+                    //circle.Fill = Brushes.Red;
+                }
+                else
+                {
+                    //circle.Fill = Brushes.Blue;
+                }
+            });
         }
     }
 }

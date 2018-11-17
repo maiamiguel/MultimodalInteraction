@@ -103,10 +103,14 @@ namespace speechModality
          */
         public void Speak(string text)
         {
-            while (player.Stream != null) { 
+            /*while (player.Stream != null) { 
                 Console.WriteLine("Waiting...");
-                }
-            
+                }*/
+            if (player.Stream != null)
+            {
+                return;
+            }
+
             //create audio stream with speech
             player.Stream = new System.IO.MemoryStream();
             tts.SetOutputToWaveStream(player.Stream);
@@ -116,7 +120,7 @@ namespace speechModality
         public void Speak(string text, int rate)
         {
 
-            Console.WriteLine("Speak method called , version with samplerate parameter");
+            //Console.WriteLine("Speak method called , version with samplerate parameter");
 
             while (player.Stream != null)
             {
@@ -128,14 +132,14 @@ namespace speechModality
             player.Stream = new System.IO.MemoryStream();
             tts.SetOutputToWaveStream(player.Stream);
             tts.Rate=rate;
-           // tts.SpeakAsync(text);
+            //tts.SpeakAsync(text);
 
 
-            Console.WriteLine("... calling  SpeakSsmlAsync()");
+            //Console.WriteLine("... calling  SpeakSsmlAsync()");
 
             tts.SpeakSsmlAsync(text);
 
-            Console.WriteLine("done  SpeakSsmlAsync().\n");
+            //Console.WriteLine("done  SpeakSsmlAsync().\n");
 
         }
 

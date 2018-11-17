@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using mmisharp;
 using Microsoft.Speech.Recognition;
+using System.Timers;
 
 namespace speechModality
 {
@@ -16,7 +17,15 @@ namespace speechModality
 
         private Tts tts;
 
-        private Boolean active = false; //Indicates whether the Assistant is active or not
+        private int i = 0; // Used to choose a random speak option
+
+        Timer timerActivation; // Timer for the Assistant activation
+        Timer timerSpeaking; // Timer for the Assistant speaking
+
+        private Boolean isAssistantActive = false; //Indicates whether the Assistant is active or not
+        private Boolean isAssistantSpeaking = false; //Indicates whether the Assistant is speaking or not
+
+        private SemanticValue pendingConf = null; //Used when the Assistant needs user confirmation
 
         protected virtual void onRecognized(SpeechEventArg msg)
         {
@@ -53,15 +62,29 @@ namespace speechModality
             tts = new Tts();
 
             //assistant welcome message
-            Assistant("Olá, eu sou o teu assistente pessoal. Em que posso ajudar?"); // To be completed...
+            AssistantSpeak("Olá, eu sou o teu assistente pessoal.", 4); // bla bla bla...
         }
 
         private void Sre_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
         {
-            onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = false, Active = active });
+            onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = false, AssistantActivation = isAssistantActive });
         }
 
-        private void Assistant(String message)
+        private void ActivationExpired(Object source, ElapsedEventArgs e)
+        {
+            Console.WriteLine("Assistant activation expired.");
+            isAssistantActive = false;
+
+            onRecognized(new SpeechEventArg());
+        }
+
+        private void SpeakingStopped(Object source, ElapsedEventArgs e)
+        {
+            Console.WriteLine("Assistant speaking stopped.");
+            isAssistantSpeaking = false;
+        }
+
+        private void AssistantSpeak(String message, int seconds)
         {
             string str = "<speak version=\"1.0\"";
             str += " xmlns:ssml=\"http://www.w3.org/2001/10/synthesis\"";
@@ -70,22 +93,49 @@ namespace speechModality
             str += "</speak>";
 
             tts.Speak(str, 0);
+
+            Console.WriteLine("Assistant speaking started.");
+            isAssistantSpeaking = true;
+
+            timerSpeaking = new Timer(seconds * 1000);
+            timerSpeaking.Elapsed += SpeakingStopped;
+            timerSpeaking.AutoReset = false;
+            timerSpeaking.Enabled = true;
         }
 
-        private void Help(String text)
+        private void RandomSpeak(String[] options, int seconds)
         {
-            Assistant(text);
+            AssistantSpeak(options[i++ % options.Length], seconds);
         }
 
-        private void Activate()
+        private void ActivateAssistant()
         {
-            active = true;
-            onRecognized(new SpeechEventArg() { Active = active });
+            if (timerActivation != null)
+            {
+                timerActivation.Stop();
+            }
+
+            Console.WriteLine("Assistant activation initiated.");
+            isAssistantActive = true;
+
+            onRecognized(new SpeechEventArg() { AssistantActivation = isAssistantActive });
+
+            // activate assistant (for 30 seconds)
+            timerActivation = new Timer(30 * 1000);
+            timerActivation.Elapsed += ActivationExpired;
+            timerActivation.AutoReset = false;
+            timerActivation.Enabled = true;
         }
 
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            //Console.WriteLine("Command: " + e.Result.Semantics["command"].Value.ToString() + "; Confidence: " + e.Result.Confidence);
+            Console.WriteLine("Command: " + e.Result.Semantics["command"].Value.ToString() + "; Confidence: " + e.Result.Confidence);
+
+            // ignore while the assistant is speaking
+            if (isAssistantSpeaking)
+            {
+                return;
+            }
 
             // User speeches with poor confidence levels are discarded
             if (e.Result.Confidence < 0.4)
@@ -96,56 +146,120 @@ namespace speechModality
             // Activation command
             if (e.Result.Semantics["command"].Value.ToString() == "ACTIVATION")
             {
-                Activate();
-                //pendingSemantic = null;
+                ActivateAssistant();
+                pendingConf = null;
                 return;
             }
 
             //Do nothing while the Assistant not active
-            if (!active)
+            if (!isAssistantActive)
             {
-                //pendingSemantic = null;
+                pendingConf = null;
                 return;
             }
 
-            onRecognized(new SpeechEventArg(){Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true, Active = active });
+            // Maintain the Assistant active
+            ActivateAssistant();
+
+            onRecognized(new SpeechEventArg(){Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true, AssistantActivation = isAssistantActive });
 
             if (e.Result.Confidence < 0.6)
             {
-                Assistant("Não consegui perceber o que disse. Importa-se de repetir?");
-                //pendingSemantic = null;
+                AssistantSpeak("Não consegui perceber o que disse. Importa-se de repetir?", 4);
+                pendingConf = null;
                 return;
             }
 
             // Help command
             if (e.Result.Semantics["command"].Value.ToString() == "HELP")
             {
-                Help("Ok, experimente perguntar por exemplo: Quero viajar para Lisboa.");
-                //pendingSemantic = null;
+                RandomSpeak(new string[] {
+                    "Ok, pergunte por exemplo: Quero viajar para Lisboa."
+                }, 4);
+                pendingConf = null;
                 return;
             }
 
             // User speeches with confidence levels between 60% and 80%
             if (e.Result.Confidence < 0.8)
             {
-                //pendingSemantic = e.Result.Semantics;
+                pendingConf = e.Result.Semantics;
                 String command = e.Result.Semantics["command"].Value.ToString();
 
                 switch (command)
                 {
                     case "SEARCH":
-                        Assistant("Quer que procure voos?");
+                        AssistantSpeak("Quer que procure voos?", 2);
                         return;
                 }
 
                 // by default, do not confirm actions that would be a mess if envolved voice feedback, like asking to go to the next slide of a powerpoint
-                //pendingSemantic = null;
+                pendingConf = null;
+            }
+
+            // hold semantics from a previous command that is being confirmed or from the current command
+            SemanticValue semanticVal = null;
+
+            if (pendingConf != null)
+            {
+                // handle confirmation command
+                switch (e.Result.Semantics["command"].Value.ToString())
+                {
+                    case "YES":
+                        RandomSpeak(new string[] {
+                            "Ok, estou a tratar disso.",
+                            "Ok, certo."
+                        }, 4);
+                        break;
+                    case "NO":
+                        pendingConf = null;
+                        RandomSpeak(new string[] {
+                            "Ah ok, eu percebi outra coisa.",
+                            "Ah ok, eu não ouvi bem."
+                        }, 4);
+                        return;
+                }
+
+                semanticVal = pendingConf;
+                pendingConf = null;
+            }
+            else
+            {
+                // handle other commands
+                switch (e.Result.Semantics["command"].Value.ToString())
+                {
+                    case "SEARCH":
+                        if(e.Result.Semantics["command"].Value.ToString() == "SEARCH")
+                        {
+                            if (e.Result.Semantics.ContainsKey("destination") && e.Result.Semantics["destination"].Value.ToString() == "LISBOA")
+                            {
+                                AssistantSpeak("Boa escolha! Lisboa é uma cidade lindíssima e está na moda.", 4);
+                                return;
+                            }
+                            else
+                            {
+                                AssistantSpeak("Com certeza.", 4);
+                            }
+                        }
+                        break;
+                }
+
+                semanticVal = e.Result.Semantics;
+            }
+
+            // if a command was recognized and the confirmation of a previous command was ignored by the user, disable it
+            pendingConf = null;
+
+            // stop here if it was a inner command
+            if (semanticVal["command"].Value.ToString() == "YES" || semanticVal["command"].Value.ToString() == "NO")
+            {
+                return;
             }
 
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
             string json = "{ \"recognized\": [";
-            foreach (var resultSemantic in e.Result.Semantics)
+            foreach (var resultSemantic in semanticVal)
             {
                 json+= "\"" + resultSemantic.Value.Value +"\", ";
             }

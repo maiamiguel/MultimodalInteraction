@@ -11,6 +11,6 @@ namespace speechModality
         public string Text { get; set; }
         public double Confidence { get; set; }
         public bool Final { get; set; }
-        public bool Active { get; set; }
+        public bool AssistantActivation { get; set; }
     }
 }

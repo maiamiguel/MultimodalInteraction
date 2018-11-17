@@ -12,6 +12,9 @@
       <item>
         <ruleref uri="#activation"/>
       </item>
+      <item>
+        <ruleref uri="#confirmation"/>
+      </item>
     </one-of>
 	</rule>
   
@@ -82,5 +85,28 @@
 
   <rule id="activation">
     <item>Ó Booking<tag>out.command="ACTIVATION"</tag></item>
+  </rule>
+
+  <rule id="confirmation">
+    <item>
+      <one-of>
+        <item>
+          <one-of>
+            <item>Sim</item>
+            <item>Sim, quero</item>
+            <item>Sim, por favor</item>
+          </one-of>
+          <tag>out.command="YES"</tag>
+        </item>
+        <item>
+          <one-of>
+            <item>Não</item>
+            <item>Não quero</item>
+            <item>Nada disso</item>
+          </one-of>
+          <tag>out.command="NO"</tag>
+        </item>
+      </one-of>
+    </item>
   </rule>
 </grammar>
