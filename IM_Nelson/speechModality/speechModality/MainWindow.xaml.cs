@@ -20,8 +20,8 @@ namespace speechModality
     /// </summary>
     public partial class MainWindow : Window
     {
-
         private SpeechMod _sm;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,10 +42,11 @@ namespace speechModality
                 if (e.AssistantActivation)
                 {
                     //circle.Fill = Brushes.Red;
+                    
                 }
                 else
                 {
-                    //circle.Fill = Brushes.Blue;
+                    //circle.Fill = Brushes.Gray;
                 }
             });
         }

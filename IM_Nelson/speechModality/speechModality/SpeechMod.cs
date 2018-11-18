@@ -18,6 +18,7 @@ namespace speechModality
         private Tts tts;
 
         private int i = 0; // Used to choose a random speak option
+        private int searchNumber = 0;
 
         Timer timerActivation; // Timer for the Assistant activation
         Timer timerSpeaking; // Timer for the Assistant speaking
@@ -62,7 +63,7 @@ namespace speechModality
             tts = new Tts();
 
             //assistant welcome message
-            AssistantSpeak("Olá, eu sou o teu assistente pessoal.", 4); // bla bla bla...
+            AssistantSpeak("Olá, eu sou o teu assistente pessoal.", 4); // to review
         }
 
         private void Sre_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
@@ -115,6 +116,12 @@ namespace speechModality
                 timerActivation.Stop();
             }
 
+            if (!isAssistantActive)
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(); //Environment.CurrentDirectory + "\\beep.wav"
+                player.Play();
+            }
+
             Console.WriteLine("Assistant activation initiated.");
             isAssistantActive = true;
 
@@ -138,7 +145,7 @@ namespace speechModality
             }
 
             // User speeches with poor confidence levels are discarded
-            if (e.Result.Confidence < 0.4)
+            if (e.Result.Confidence <= 0.4)
             {
                 return;
             }
@@ -163,7 +170,8 @@ namespace speechModality
 
             onRecognized(new SpeechEventArg(){Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true, AssistantActivation = isAssistantActive });
 
-            if (e.Result.Confidence < 0.6)
+            // User speeches with confidence levels between 40% and 60%
+            if (e.Result.Confidence <= 0.6)
             {
                 AssistantSpeak("Não consegui perceber o que disse. Importa-se de repetir?", 4);
                 pendingConf = null;
@@ -181,7 +189,7 @@ namespace speechModality
             }
 
             // User speeches with confidence levels between 60% and 80%
-            if (e.Result.Confidence < 0.8)
+            if (e.Result.Confidence <= 0.8)
             {
                 pendingConf = e.Result.Semantics;
                 String command = e.Result.Semantics["command"].Value.ToString();
@@ -214,8 +222,8 @@ namespace speechModality
                     case "NO":
                         pendingConf = null;
                         RandomSpeak(new string[] {
-                            "Ah ok, eu percebi outra coisa.",
-                            "Ah ok, eu não ouvi bem."
+                            "Ah ok, eu não percebi bem.",
+                            "Desculpa, eu não ouvi bem."
                         }, 4);
                         return;
                 }
@@ -233,18 +241,27 @@ namespace speechModality
                         {
                             if (e.Result.Semantics.ContainsKey("destination") && e.Result.Semantics["destination"].Value.ToString() == "LISBOA")
                             {
-                                AssistantSpeak("Boa escolha! Lisboa é uma cidade lindíssima e está na moda.", 4);
+                                AssistantSpeak("Boa escolha! Lisboa é uma cidade lindíssima.", 4);
                                 return;
+                            }
+                            if (searchNumber == 1)
+                            {
+                                AssistantSpeak("Muito bem, já vi que gosta de viajar. Estou a tratar disso.", 4);
                             }
                             else
                             {
                                 AssistantSpeak("Com certeza.", 4);
                             }
                         }
-                        break;
+                        return;
                 }
 
                 semanticVal = e.Result.Semantics;
+            }
+
+            if (semanticVal["command"].Value.ToString() == "SEARCH")
+            {
+                searchNumber++;
             }
 
             // if a command was recognized and the confirmation of a previous command was ignored by the user, disable it
@@ -259,12 +276,13 @@ namespace speechModality
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
             string json = "{ \"recognized\": [";
-            foreach (var resultSemantic in semanticVal)
+            foreach (var resultSemantic in semanticVal) //
             {
                 json+= "\"" + resultSemantic.Value.Value +"\", ";
             }
             json = json.Substring(0, json.Length - 2);
             json += "] }";
+            Console.WriteLine(json); //
 
             var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime+"", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration)+"",e.Result.Confidence, json);
             mmic.Send(exNot);

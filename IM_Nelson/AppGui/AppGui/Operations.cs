@@ -19,7 +19,7 @@ namespace AppGui
             {
                 driver = new ChromeDriver();
                 flag = true;
-                Console.WriteLine("flag: " + flag);
+                //Console.WriteLine("flag: " + flag);
             }
 
             driver.Navigate().GoToUrl("https://booking.kayak.com");
@@ -29,7 +29,7 @@ namespace AppGui
             //IWebElement searchButton = driver.FindElement(By.ClassName("[id$=submit]"));
 
             String command1 = json.recognized[1].ToString();
-            Console.WriteLine("command 1: " + command1);
+            //Console.WriteLine("command 1: " + command1);
 
             switch (command1)
             {
