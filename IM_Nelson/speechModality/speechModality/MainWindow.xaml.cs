@@ -41,12 +41,13 @@ namespace speechModality
             {
                 if (e.AssistantActivation)
                 {
-                    //circle.Fill = Brushes.Red;
-                    
+                    // Circle turn red while the Assistant is active
+                    circle.Fill = Brushes.Green;
                 }
                 else
                 {
-                    //circle.Fill = Brushes.Gray;
+                    // Otherwise, the circle remain red
+                    circle.Fill = Brushes.Red;
                 }
             });
         }

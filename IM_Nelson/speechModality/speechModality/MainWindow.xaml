@@ -5,10 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:speechModality"
         mc:Ignorable="d"
-        Title="SpeechModality" Height="135.868" Width="476.789">
+        Title="Assistente Booking :)" Height="220" Width="330">
     <Grid>
-        <TextBox x:Name="result" HorizontalAlignment="Left" Height="40" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="449" FontSize="20" />
-        <TextBox x:Name="confidence" HorizontalAlignment="Left" Height="40" Margin="10,55,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="449" FontSize="20" />
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="16*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Ellipse x:Name="circle" Width="75" Height="75" VerticalAlignment="Top" Fill="Red" Margin="69,20,69.6,0"></Ellipse>
+        <TextBox x:Name="booking" HorizontalAlignment="Center" Height="20" Margin="10,122,9.6,0" TextAlignment="Center" TextWrapping="Wrap" Text="Ativação: &quot;Oh Booking&quot;" VerticalAlignment="Top" Width="194" FontSize="14" BorderThickness="0" IsReadOnly="True"/>
+        <TextBox x:Name="help" HorizontalAlignment="Center" Height="20" Margin="10,147,9.6,0" TextAlignment="Center" TextWrapping="Wrap" Text="Ajuda: &quot;Quero ajuda&quot;" VerticalAlignment="Top" Width="194" FontSize="14" BorderThickness="0" IsReadOnly="True" Grid.RowSpan="2"/>
     </Grid>
 </Window>

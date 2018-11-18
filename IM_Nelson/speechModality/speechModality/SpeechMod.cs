@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using mmisharp;
 using Microsoft.Speech.Recognition;
 using System.Timers;
+using System.Media;
 
 namespace speechModality
 {
@@ -73,6 +74,10 @@ namespace speechModality
 
         private void ActivationExpired(Object source, ElapsedEventArgs e)
         {
+            // make sound when Assistant activation expires
+            SoundPlayer sound = new SoundPlayer(Environment.CurrentDirectory + "\\activeoff.wav");
+            sound.Play();
+
             Console.WriteLine("Assistant activation expired.");
             isAssistantActive = false;
 
@@ -118,8 +123,9 @@ namespace speechModality
 
             if (!isAssistantActive)
             {
-                System.Media.SoundPlayer player = new System.Media.SoundPlayer(); //Environment.CurrentDirectory + "\\beep.wav"
-                player.Play();
+                // make sound when Assistant activation initiates
+                SoundPlayer sound = new SoundPlayer(Environment.CurrentDirectory + "\\activeon.wav");
+                sound.Play();
             }
 
             Console.WriteLine("Assistant activation initiated.");
@@ -127,8 +133,8 @@ namespace speechModality
 
             onRecognized(new SpeechEventArg() { AssistantActivation = isAssistantActive });
 
-            // activate assistant (for 30 seconds)
-            timerActivation = new Timer(30 * 1000);
+            // activate assistant (for 10 seconds)
+            timerActivation = new Timer(10 * 1000);
             timerActivation.Elapsed += ActivationExpired;
             timerActivation.AutoReset = false;
             timerActivation.Enabled = true;
@@ -182,7 +188,7 @@ namespace speechModality
             if (e.Result.Semantics["command"].Value.ToString() == "HELP")
             {
                 RandomSpeak(new string[] {
-                    "Ok, pergunte por exemplo: Quero viajar para Lisboa."
+                    "Pergunte por exemplo: Quero viajar para Lisboa."
                 }, 4);
                 pendingConf = null;
                 return;
@@ -215,8 +221,9 @@ namespace speechModality
                 {
                     case "YES":
                         RandomSpeak(new string[] {
-                            "Ok, estou a tratar disso.",
-                            "Ok, certo."
+                            "Ok, estou a ver isso.",
+                            "Ok, certo.",
+                            "Está bem."
                         }, 4);
                         break;
                     case "NO":
