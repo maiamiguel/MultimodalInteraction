@@ -50,6 +50,10 @@
     <item>alojamento em<tag>out="HOTEL"</tag></item>
     <item>estadia em<tag>out="HOTEL"</tag></item>
     <item>estadia<tag>out="HOTEL"</tag></item>
+    <item>restaurantes<tag>out="FOOD"</tag></item>
+    <item>restaurantes em<tag>out="FOOD"</tag></item>
+    <item>carros em<tag>out="CARS"</tag></item>
+    <item>carros para alugar em<tag>out="CARS"</tag></item>
 	  </one-of>
     
 	</rule>

@@ -23,22 +23,33 @@ namespace AppGui{
 
             // Selenium
 
-            
-
             String countryName = null;
 
             if (type == "VOO")
             {
-                driver.Navigate().GoToUrl("https://booking.kayak.com");
-                IWebElement destination = driver.FindElement(By.CssSelector("[id$=destination]"));
-                IWebElement initDate = driver.FindElement(By.CssSelector("[id$=depart-input]"));
-                IWebElement finDate = driver.FindElement(By.CssSelector("[id$=return-input]"));
+                driver.Navigate().GoToUrl("https://booking.kayak.com/");
+                IWebElement source = driver.FindElement(By.ClassName("Common-Widgets-Text-TextInput size-l selectTextOnFocus input-flat"));
+                source.SendKeys("Porto");
+                IWebElement destination = driver.FindElement(By.ClassName("bpk-input-R6x4G fsc-large-above-tablet-3NddW fsc-docked-middle-above-tablet-1iZwT fsc-docked-last-on-tablet-vWch9 fsc-location-input-2Jtp_"));
+                IWebElement search = driver.FindElement(By.ClassName("bpk-button-2YQI1 bpk-button--large-1Z1P5 SubmitButton-WxCV2"));
             }
             else if (type == "HOTEL")
             {
-                driver.Navigate().GoToUrl("http://booking.com");        // Navigate to booking page
-                element = driver.FindElement(By.Name("ss"));    //Find the Search text box UI Element
+                driver.Navigate().GoToUrl("http://booking.com");                        // Navigate to booking page
+                element = driver.FindElement(By.Name("ss"));                            //Find the Search text box UI Element
                 element1 = driver.FindElement(By.ClassName("sb-searchbox__button"));    // Click the search button
+            }
+            else if (type == "FOOD")
+            {
+                driver.Navigate().GoToUrl("https://www.opentable.co.uk/?ref=13850");        // Navigate to booking page
+                element = driver.FindElement(By.ClassName("dtp-picker-search tt-input"));   //Find the Search text box UI Element
+                element1 = driver.FindElement(By.ClassName("button dtp-picker-button"));    // Click the search button
+            }
+            else if (type == "CARS")
+            {
+                driver.Navigate().GoToUrl("http://www.rentalcars.com/");                // Navigate to booking page
+                element = driver.FindElement(By.ClassName("ui-autocomplete-input"));    //Find the Search text box UI Element
+                element1 = driver.FindElement(By.Id("formsubmit"));                     // Click the search button
             }
             else if (type == "CLOSE")
             {

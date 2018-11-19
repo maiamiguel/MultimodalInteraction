@@ -19,7 +19,7 @@ namespace speechModality{
         private Boolean assistantActive = false;
 
         Timer speakingTimer;
-        private Boolean ttS_Speaking = false;
+        private static Boolean ttS_Speaking = true;
 
         private int choice = 0;
 
@@ -55,14 +55,14 @@ namespace speechModality{
             tts = new Tts();
 
             // introduce assistant
-            Speak("Olá, eu sou o teu assistente de viagens." +
+            ttS_Speaking = true;
+            Speak( "Olá, eu sou o teu assistente de viagens." +
                 " Tenho todo o gosto em ajudar-te a planear as tuas férias de sonho." +
-                " Podes saber mais sobre mim dizendo: preciso de ajuda.");
+                " Podes saber mais sobre mim dizendo: preciso de ajuda." );
         }
 
         //TTS
         private void Speak(String text){
-            ttS_Speaking = true;
             string str = "<speak version=\"1.0\"";
             str += " xmlns:ssml=\"http://www.w3.org/2001/10/synthesis\"";
             str += " xml:lang=\"pt-PT\">";
@@ -74,7 +74,6 @@ namespace speechModality{
             // enable talking flag
             
             Console.WriteLine("Assistant speaking.");
-
             ttS_Speaking = false;
         }
 
@@ -86,7 +85,9 @@ namespace speechModality{
 
         private void RandomSpeak(String[] choices)
         {
+            //ttS_Speaking = true;
             Speak(choices[choice++ % choices.Length]);
+            ttS_Speaking = false;
         }
 
         private void Sre_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e){
@@ -98,52 +99,54 @@ namespace speechModality{
             if (ttS_Speaking){
                 return;
             }
+            else{
+                Console.WriteLine(" TTS NOT SPEAKING ");
+                // ignore low confidance levels
+                if (e.Result.Confidence < 0.4)
+                {
+                    return;
+                }
 
-            // ignore low confidance levels
-            if (e.Result.Confidence < 0.5){
-                return;
+                onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true });
+
+                // if confidence is between 40% and 60%
+                if (e.Result.Confidence <= 0.6 && !ttS_Speaking)
+                {
+                    Speak("Desculpa, não consegui entender. Repete por favor..");
+                    return;
+                }
+
+                // TO DOOOOOOOOOOOOOOOO
+                // if confidence is between 60% and 80%, confirm explicitly
+                /*if (e.Result.Confidence <= 0.80 && !ttS_Speaking)
+                {
+                    Speak("Confirmar resposta...");
+                }*/
+
+                //SEND
+                // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
+                string json = "{ \"recognized\": [";
+                foreach (var resultSemantic in e.Result.Semantics)
+                {
+                    json += "\"" + resultSemantic.Value.Value + "\", ";
+                }
+                json = json.Substring(0, json.Length - 2);
+                json += "] }";
+
+                String help = "HELP";
+                if (json.Contains(help)){
+                    RandomSpeak(new string[]{
+                        "Experimenta dizer: Pesquisar voos em Espanha",
+                        "Experimenta dizer: Pesquisar alojamento em Itália",
+                        "Experimenta dizer: Pesquisar carros em França",
+                        "Experimenta dizer: Pesquisar voos para Suíça",
+                    });
+                    return;
+                }
+
+                var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime + "", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration) + "", e.Result.Confidence, json);
+                mmic.Send(exNot);
             }
-
-            onRecognized(new SpeechEventArg(){Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true});
-
-            // if confidence is between 40% and 60%
-            if (e.Result.Confidence <= 0.4){
-                Speak("Desculpa, não consegui entender.");
-                return;
-            }
-            
-            //Console.WriteLine("DEBUG   "  + e.Result.Semantics["help"].Value.ToString());
-            // help
-            /*if (e.Result.Semantics["action"].Value.ToString() == "HELP")
-            {
-                Console.WriteLine("FUCK YEAH!!!!!");
-                RandomSpeak(new string[]{
-                    "Experimenta dizer: Pesquisar voos em Espanha",
-                    "Experimenta dizer: Pesquisar alojamento em Itália",
-                    "Experimenta dizer: Pesquisar carros em França",
-                    "Experimenta dizer: Pesquisar voos para Suíça",
-                });
-                return;
-            }
-            */
-
-            // TO DOOOOOOOOOOOOOOOO
-            // if confidence is between 60% and 80%, confirm explicitly
-            if (e.Result.Confidence <= 0.80){
-                Console.WriteLine("Confirmar resposta...");
-            }
-
-            //SEND
-            // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
-            string json = "{ \"recognized\": [";
-            foreach (var resultSemantic in e.Result.Semantics){
-                json+= "\"" + resultSemantic.Value.Value +"\", ";
-            }
-            json = json.Substring(0, json.Length - 2);
-            json += "] }";
-
-            var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime+"", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration)+"",e.Result.Confidence, json);
-            mmic.Send(exNot);
         }
     }
 }
