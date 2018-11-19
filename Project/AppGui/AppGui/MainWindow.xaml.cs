@@ -33,6 +33,18 @@ namespace AppGui{
             Console.WriteLine("JSON recognized" + json);
 
             switch (_s){
+                case "M1":
+                    ProcessingComandsFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
+                case "M2":
+                    ProcessingComandsFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
+                case "M3":
+                    ProcessingComandsFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
                 case "SEARCH":
                     Console.WriteLine("PESQUISAR  -> " + (string)json.recognized[2].ToString());
                     ProcessingComandsFunctions.AcceptCommand((string)json.recognized[1].ToString() , (string)json.recognized[2].ToString());
@@ -43,12 +55,6 @@ namespace AppGui{
                     //Tentativa de meter o círculo a verde quando o sistema está a fornecer ajuda mas não funciona.
                     shape = circle;
                     shape.Fill = Brushes.Green;
-                    break;
-
-                case "ACTIVATE":
-                    //Close the browser
-                    Console.WriteLine("Activar a aplicação. Ficar à escuta.");
-                    ProcessingComandsFunctions.AcceptCommand( (string)json.recognized[0].ToString() , null);
                     break;
 
                 case "CLOSE":

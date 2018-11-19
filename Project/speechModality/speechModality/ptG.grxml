@@ -19,8 +19,11 @@
       <item>
           <item>
             <ruleref uri="#activate"/>
-            <tag>out.activate=rules.latest()</tag>
         </item>
+      </item>
+      <item>
+        <ruleref uri="#mood"/>
+        <tag>out.mood=rules.latest()</tag>
       </item>
       <item>
           <item>
@@ -35,6 +38,14 @@
       </item>
     </one-of>
 	</rule>
+
+  <rule id="mood">
+    <one-of>
+      <item>Estou super cansado<tag>out="M1"</tag></item>
+      <item>Que frio<tag>out="M2"</tag></item>
+      <item>Que calor<tag>out="M3"</tag></item>
+    </one-of>
+  </rule>
   
   <rule id="type">
 	  <one-of>
@@ -55,7 +66,6 @@
     <item>carros em<tag>out="CARS"</tag></item>
     <item>carros para alugar em<tag>out="CARS"</tag></item>
 	  </one-of>
-    
 	</rule>
     
   <rule id="help">
