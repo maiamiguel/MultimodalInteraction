@@ -13,6 +13,7 @@ namespace AppGui{
         private static IWebDriver driver;
         private static IWebElement element;
         private static IWebElement element1;
+        private static IWebElement source;
         private static String option = "";
         private static String[] M1Destinations =
         {
@@ -70,17 +71,53 @@ namespace AppGui{
             if (type == "VOO")
             {
                 option = "VOO";
-                driver.Navigate().GoToUrl("https://booking.kayak.com/");
-                IWebElement source = driver.FindElement(By.ClassName("Common-Widgets-Text-TextInput size-l selectTextOnFocus input-flat"));
-                source.SendKeys("Porto");
-                IWebElement element = driver.FindElement(By.CssSelector("[id$=destination]"));
-                IWebElement element1 = driver.FindElement(By.CssSelector("[id$=submit]"));
+                /*driver.Navigate().GoToUrl("https://booking.kayak.com/");
+                IWebElement source = driver.FindElement(By.Name("origin"));
+                source.SendKeys("lisboa");
+                IWebElement element = driver.FindElement(By.Name("destination"));
+                IWebElement element1 = driver.FindElement(By.Id("WZmS-submit"));
+                */
+                /*
+                driver.Navigate().GoToUrl("https://www.momondo.pt/");
+                source = driver.FindElement(By.Name("origin"));
+
+                element = driver.FindElement(By.Name("destination"));
+                element1 = driver.FindElement(By.Id("Zyw6-submit"));
+                */
+
+                /*
+                driver.Navigate().GoToUrl("https://www.kiwi.com/pt/");
+                source = driver.FindElement(By.Name("origin"));
+
+                element = driver.FindElement(By.Name("destination"));
+                element1 = driver.FindElement(By.Id("Zyw6-submit"));
+                */
+
             }
             else if (type == "HOTEL")
             {
-                driver.Navigate().GoToUrl("http://booking.com");                        // Navigate to booking page
-                element = driver.FindElement(By.Name("ss"));                            // Find the Search text box UI Element
+                driver.Navigate().GoToUrl("https://booking.com");           // Navigate to webpage
+                element = driver.FindElement(By.Name("ss"));                // Find the Search text box UI Element
                 element1 = driver.FindElement(By.ClassName("sb-searchbox__button"));    // Click the search button
+                DateTime thisDay = DateTime.Today;
+                var year = thisDay.Year;
+                var month = thisDay.Month;
+                var day = thisDay.Day;
+
+                DateTime checkout = DateTime.Today;
+                checkout.AddDays(4);
+                var year2 = checkout.Year;
+                var month2 = checkout.Month;
+                var day2 = checkout.Day;
+
+                driver.FindElement(By.Name("checkin_month")).SendKeys(month.ToString());
+                driver.FindElement(By.Name("checkin_monthday")).SendKeys(day.ToString());
+                driver.FindElement(By.Name("checkin_year")).SendKeys(year.ToString());
+
+
+                driver.FindElement(By.Name("checkout_month")).SendKeys(month2.ToString());
+                driver.FindElement(By.Name("checkout_monthday")).SendKeys(day2.ToString());
+                driver.FindElement(By.Name("checkout_year")).SendKeys(year2.ToString());
             }
             else if (type == "FOOD")
             {
