@@ -16,6 +16,8 @@ namespace AppGui
         private static Boolean firstTime = true;
         private static IWebDriver driver;
         private static Actions action;
+        private static Boolean firstFlightSearch = true;
+        private static Boolean firstHotelSearch = true;
 
         public static void Search(String type, String city)
         {
@@ -27,7 +29,7 @@ namespace AppGui
                 firstTime = false;
             }
 
-            if(type == "FLIGHT")
+            if (type == "FLIGHT")
             {
                 // go to home page
                 driver.Navigate().GoToUrl("https://www.cleartrip.com/");
@@ -59,7 +61,11 @@ namespace AppGui
                 // click depart box
                 driver.FindElement(By.XPath("//*[@id='DepartDate']")).Click();
                 // click next month button
-                driver.FindElement(By.XPath("//*[@id='ui-datepicker-div']/div[2]/div/a")).Click();
+                if (firstFlightSearch)
+                {
+                    driver.FindElement(By.XPath("//*[@id='ui-datepicker-div']/div[2]/div/a")).Click();
+                    firstFlightSearch = false;
+                }
                 // select depart day
                 driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr/td/a)[29]")).Click();
                 // click search button
@@ -67,14 +73,14 @@ namespace AppGui
             }
             else if(type == "HOTEL")
             {
-                // go to hotels page
-                driver.Navigate().GoToUrl("https://www.cleartrip.com/hotels/");
-                // click hotels link
-                //driver.FindElement(By.XPath("//*[@id='Home']/div/aside[1]/nav/ul[1]/li[2]/a")).Click();
+                // go to home page
+                driver.Navigate().GoToUrl("https://www.cleartrip.com/");
                 // click country button
                 driver.FindElement(By.XPath("//*[@id='userAccountNav']/nav/ul/li[2]/a")).Click();
                 // select US country
                 driver.FindElement(By.XPath("//*[@id='countryForm']/li[8]/a")).Click();
+                // click hotels link
+                driver.FindElement(By.XPath("//*[@id='Home']/div/aside[1]/nav/ul[1]/li[2]/a")).Click();
 
                 switch (city)
                 {
@@ -119,13 +125,24 @@ namespace AppGui
                 // click check-in box
                 driver.FindElement(By.XPath("//*[@id='CheckInDate']")).Click();
                 // click next month button
-                driver.FindElement(By.XPath("//*[@id='ui-datepicker-div']/div[2]/div/a")).Click();
+                if (firstHotelSearch)
+                {
+                    driver.FindElement(By.XPath("//*[@id='ui-datepicker-div']/div[2]/div/a")).Click();
+                }
                 // select check-in day
                 driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr/td/a)[29]")).Click();
                 // click check-out box
                 driver.FindElement(By.XPath("//*[@id='CheckOutDate']")).Click();
                 // select check-out day
-                driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[2]/table/tbody/tr/td/a)[1]")).Click();
+                if (firstHotelSearch)
+                {
+                    driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[2]/table/tbody/tr/td/a)[1]")).Click();
+                    firstHotelSearch = false;
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr/td/a)[1]")).Click();
+                }
                 // click search button
                 driver.FindElement(By.Id("SearchHotelsButton")).Click();
             }
