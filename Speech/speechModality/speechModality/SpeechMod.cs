@@ -15,12 +15,11 @@ namespace speechModality{
         private Grammar gr;
         public event EventHandler<SpeechEventArg> Recognized;
 
-        private static Boolean isAssistantSpeaking = false;
-
         private int choice = 0;
 
         Timer speakingTimer;
         private Boolean assistantSpeaking = false;
+        private bool assistantSpeakingFlag;
 
         protected virtual void onRecognized(SpeechEventArg msg){
             EventHandler<SpeechEventArg> handler = Recognized;
@@ -32,8 +31,10 @@ namespace speechModality{
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
         private SemanticValue pendingSemantic;
+        private bool searchDone = false;
 
-        public SpeechMod(){
+        public SpeechMod()
+        {
             //init LifeCycleEvents..
             lce = new LifeCycleEvents("ASR", "FUSION","speech-1", "acoustic", "command"); // LifeCycleEvents(string source, string target, string id, string medium, string mode)
             //mmic = new MmiCommunication("localhost",9876,"User1", "ASR");  //PORT TO FUSION - uncomment this line to work with fusion later
@@ -70,18 +71,21 @@ namespace speechModality{
 
             // enable talking flag
             assistantSpeaking = true;
+            assistantSpeakingFlag = true;
             Console.WriteLine("Assistant speaking.");
 
             speakingTimer = new Timer(seconds * 1000);
             speakingTimer.Elapsed += OnSpeakingEnded;
             speakingTimer.AutoReset = false;
             speakingTimer.Enabled = true;
+
         }
 
         private void OnSpeakingEnded(Object source, ElapsedEventArgs e)
         {
             Console.WriteLine("Assistant stopped speaking.");
             assistantSpeaking = false;
+            assistantSpeakingFlag = false;
         }
 
         private void RandomSpeak(String[] choices, int seconds)
@@ -91,7 +95,7 @@ namespace speechModality{
 
         private void Sre_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
         {
-            onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = false });
+            onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = false, AssistantSpeaking = assistantSpeaking });
         }
 
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e){
@@ -110,7 +114,7 @@ namespace speechModality{
             // if confidence is between 40% and 60%
             if (e.Result.Confidence <= 0.6)
             {
-                Speak("Desculpa, não consegui entender. Repete por favor..", 4);
+                Speak("Desculpa, não consegui entender. Importas-te de repetir se faz favor?", 5);
                 return;
             }
 
@@ -121,7 +125,7 @@ namespace speechModality{
                 Speak("Confirmar resposta..." , 2);
             }*/
 
-            onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true });
+            onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true, AssistantSpeaking = assistantSpeaking });
 
             // SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
@@ -133,12 +137,28 @@ namespace speechModality{
             json = json.Substring(0, json.Length - 2);
             json += "] }";
 
+            if (json.Contains("SEARCH"))
+            {
+                searchDone = true;
+                Speak("Estou a pesquisar, só um segundo..", 2);
+            }
+
+            if (json.Contains("HOTEL"))
+            {
+                searchDone = true;
+            }
+
+            if (json.Contains("FILTER") && !searchDone)
+            {
+                Speak("É necessário definir um destino para pesquisa de hotéis primeiro..", 5);
+                return;
+            }
+
             if (json.Contains("HELP")){
                 RandomSpeak(new string[]{
-                    "Experimenta dizer: Pesquisar voos em Espanha",
-                    "Experimenta dizer: Pesquisar alojamento em Itália",
-                    "Experimenta dizer: Pesquisar carros em França",
-                    "Experimenta dizer: Pesquisar voos para Suíça",
+                    "Experimenta dizer: Pesquisar voos em Madrid",
+                    "Experimenta dizer: Pesquisar alojamento em Roma",
+                    "Experimenta dizer: Pesquisar voos para Londres",
                 }, 4);
                 return;
             }

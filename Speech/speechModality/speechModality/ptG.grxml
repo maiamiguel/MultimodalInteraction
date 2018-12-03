@@ -28,7 +28,21 @@
             <tag>out.close=rules.latest()</tag>
         </item>
         <item>
+            <ruleref uri="#option"/>
+            <tag>out.option=rules.latest()</tag>
+        </item>
+        <item>
             <ruleref uri="#confirmation"/>
+        </item>
+        <item>
+            <item>
+			          <ruleref uri="#filter"/>
+			          <tag>out.filter=rules.latest();</tag>
+		        </item>
+            <item>
+			          <ruleref uri="#filterType"/>
+			          <tag>out.filterType=rules.latest();</tag>
+		        </item>
         </item>
     </one-of>
 	</rule>
@@ -40,7 +54,27 @@
       <item>quero pesquisar</item>
     </one-of>
     <tag>out="SEARCH"</tag>
-  </rule>  
+  </rule>
+  
+  <rule id="filter">
+    <one-of>
+      <item>filtrar hotéis por </item>
+    </one-of>
+    <tag>out="FILTER"</tag>
+  </rule>
+  
+  <rule id="filterType">
+    <one-of>
+      <item>ar condicionado<tag>out="AC"</tag></item>
+      <item>vinte e quatro horas check in<tag>out="CI"</tag></item>
+      <item>wifi<tag>out="NET"</tag></item>
+      <item>restaurante<tag>out="FOOD"</tag></item>
+      <item>bar<tag>out="BAR"</tag></item>
+      <item>ginásio<tag>out="GYM"</tag></item>
+      <item>coffee shop<tag>out="CS"</tag></item>
+      <item>piscina<tag>out="POOL"</tag></item>
+    </one-of>
+  </rule>
   
   <rule id="type">
 	  <one-of>
@@ -101,6 +135,14 @@
     </one-of>
   </rule>
 
+  <rule id="option">
+    <one-of>
+      <item>Um adulto<tag>out="O1"</tag></item>
+      <item>Dois adulto<tag>out="O2"</tag></item>
+      <item>Três adulto<tag>out="O3"</tag></item>
+    </one-of>
+  </rule>
+  
   <rule id="confirmation">
       <item>
         <one-of>

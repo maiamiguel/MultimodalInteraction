@@ -37,6 +37,18 @@ namespace AppGui
 
             switch (_s)
             {
+                case "O1":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
+                case "O2":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
+                case "O3":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
                 case "M1":
                     ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
                     break;
@@ -51,6 +63,11 @@ namespace AppGui
 
                 case "SEARCH":
                     ProcessingCommandFunctions.AcceptCommand((string)json.recognized[1].ToString(), (string)json.recognized[2].ToString());
+                    break;
+
+                case "FILTER":
+                    //Close the browser
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
                     break;
 
                 case "CLOSE":

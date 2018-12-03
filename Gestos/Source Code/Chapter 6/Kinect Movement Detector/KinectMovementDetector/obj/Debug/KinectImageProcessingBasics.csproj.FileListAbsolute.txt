@@ -1,1 +1,0 @@
-c:\users\mansi\documents\visual studio 2015\Projects\KinectImageProcessingBasics\KinectImageProcessingBasics\bin\Debug\KinectImageProcessingBasics.exe.config
