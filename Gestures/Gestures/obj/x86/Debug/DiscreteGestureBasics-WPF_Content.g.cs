@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/gestures.gbd")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/seated.gbd")]
 
 
