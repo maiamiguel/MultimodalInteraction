@@ -26,7 +26,7 @@ namespace speechModality
         {
             InitializeComponent();
 
-            _sm = new SpeechMod();
+            _sm = new SpeechMod(circle, this.Dispatcher);
             _sm.Recognized += _sm_Recognized;
 
         }
@@ -37,7 +37,7 @@ namespace speechModality
             confidence.Text = e.Confidence + "";
             if (e.Final) result.FontWeight = FontWeights.Bold;
             else result.FontWeight = FontWeights.Normal;
-            
+            /*
             this.Dispatcher.Invoke(() =>
             {
                 if (e.AssistantSpeaking){
@@ -47,6 +47,7 @@ namespace speechModality
                     circle.Fill = Brushes.Green;
                 }
             });
+            */
         }
     }
 }

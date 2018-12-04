@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 using mmisharp;
 using Microsoft.Speech.Recognition;
 using System.Timers;
+using System.Windows.Shapes;
+using System.Drawing;
+using System.Windows.Threading;
+using System.Windows.Media;
 
-namespace speechModality{
+
+namespace speechModality
+{
     public class SpeechMod{
 
         private Tts tts;
@@ -28,13 +34,20 @@ namespace speechModality{
             }
         }
 
+        private Ellipse circle;
+
+        public Dispatcher Dispatcher { get; }
+
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
         private SemanticValue pendingSemantic;
         private bool searchDone = false;
 
-        public SpeechMod()
+        public SpeechMod(System.Windows.Shapes.Ellipse circle, System.Windows.Threading.Dispatcher dispatcher)
         {
+            this.circle = circle;
+            this.Dispatcher = dispatcher;
+             
             //init LifeCycleEvents..
             lce = new LifeCycleEvents("ASR", "FUSION","speech-1", "acoustic", "command"); // LifeCycleEvents(string source, string target, string id, string medium, string mode)
             //mmic = new MmiCommunication("localhost",9876,"User1", "ASR");  //PORT TO FUSION - uncomment this line to work with fusion later
@@ -72,13 +85,18 @@ namespace speechModality{
             // enable talking flag
             assistantSpeaking = true;
             assistantSpeakingFlag = true;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                circle.Fill = System.Windows.Media.Brushes.Red;
+            });
+
             Console.WriteLine("Assistant speaking.");
 
             speakingTimer = new Timer(seconds * 1000);
             speakingTimer.Elapsed += OnSpeakingEnded;
             speakingTimer.AutoReset = false;
             speakingTimer.Enabled = true;
-
         }
 
         private void OnSpeakingEnded(Object source, ElapsedEventArgs e)
@@ -86,6 +104,10 @@ namespace speechModality{
             Console.WriteLine("Assistant stopped speaking.");
             assistantSpeaking = false;
             assistantSpeakingFlag = false;
+            this.Dispatcher.Invoke(() =>
+            {
+                circle.Fill = System.Windows.Media.Brushes.Green;
+            });
         }
 
         private void RandomSpeak(String[] choices, int seconds)
