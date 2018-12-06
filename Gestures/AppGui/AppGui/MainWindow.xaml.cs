@@ -37,6 +37,10 @@ namespace AppGui
 
             switch (_s)
             {
+                case "GESTURE":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
+                    break;
+
                 case "O1":
                     ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
                     break;

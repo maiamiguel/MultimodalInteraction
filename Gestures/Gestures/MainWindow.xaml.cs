@@ -21,6 +21,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
     using System.Windows.Controls;
     using Microsoft.Kinect;
     using Microsoft.Kinect.VisualGestureBuilder;
+    using mmisharp;
 
     /// <summary>
     /// Interaction logic for the MainWindow
@@ -45,11 +46,21 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         /// <summary> List of gesture detectors, there will be one detector created for each potential body (max of 6) </summary>
         private List<GestureDetector> gestureDetectorList = null;
 
+        private LifeCycleEvents lce;
+        private MmiCommunication mmic;
+
         /// <summary>
         /// Initializes a new instance of the MainWindow class
         /// </summary>
         public MainWindow()
         {
+            //init LifeCycleEvents..
+            lce = new LifeCycleEvents("ASR", "FUSION", "speech-1", "acoustic", "command"); // LifeCycleEvents(string source, string target, string id, string medium, string mode)
+            //mmic = new MmiCommunication("localhost",9876,"User1", "ASR");  //PORT TO FUSION - uncomment this line to work with fusion later
+            mmic = new MmiCommunication("localhost", 8000, "User1", "ASR"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
+
+            mmic.Send(lce.NewContextRequest());
+
             // only one sensor is currently supported
             this.kinectSensor = KinectSensor.GetDefault();
             
@@ -113,6 +124,16 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
 
                 this.contentGrid.Children.Add(contentControl);
             }
+        }
+
+        private void SendCommand(String command)
+        {
+            //SEND
+            // IMPORTANT TO KEEP THE FORMAT {"recognized":["GESTURE","FLIGHT"]}
+            string json = "{ \"recognized\":[\"GESTURE\",\"" + command + "\"] }";
+
+            var exNot = lce.ExtensionNotification("", "", 100, json);
+            mmic.Send(exNot);
         }
 
         /// <summary>
@@ -215,7 +236,26 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                     // As long as those body objects are not disposed and not set to null in the array,
                     // those body objects will be re-used.
                     bodyFrame.GetAndRefreshBodyData(this.bodies);
+
+                    foreach(var body in bodies)
+                    {
+                        if(body != null)
+                        {
+                            if (body.IsTracked)
+                            {
+                                //int bodyId = (int) body.TrackingId;
+
+                                Console.WriteLine("Sending command FLIGHT");
+                                SendCommand("FLIGHT");
+                            }
+                        }
+                    }
+
                     dataReceived = true;
+                }
+                else
+                {
+                    Console.WriteLine("bodyFrame is null");
                 }
             }
 
