@@ -69,3 +69,4 @@ C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\obj
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\obj\x86\Debug\DiscreteGestureBasics-WPF.csproj.CopyComplete
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\obj\x86\Debug\DiscreteGestureBasics-WPF.exe
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\obj\x86\Debug\DiscreteGestureBasics-WPF.pdb
+C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\mmisharp.dll

@@ -10,6 +10,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
     using System.Collections.Generic;
     using Microsoft.Kinect;
     using Microsoft.Kinect.VisualGestureBuilder;
+    using mmisharp;
 
     /// <summary>
     /// Gesture Detector class which listens for VisualGestureBuilderFrame events from the service
@@ -22,13 +23,17 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private readonly string gestureDatabase = @"Database\Gestures.gbd";
 
         /// <summary> Name of the discrete gesture in the database that we want to track </summary>
-        private readonly string seatedGestureName = "Seated";
+        private readonly string hotelGestureName = "Hotel";
+        private readonly string flightGestureName = "flight";
 
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
 
         /// <summary> Gesture frame reader which will handle gesture events coming from the sensor </summary>
         private VisualGestureBuilderFrameReader vgbFrameReader = null;
+
+        private LifeCycleEvents lce;
+        private MmiCommunication mmic;
 
         /// <summary>
         /// Initializes a new instance of the GestureDetector class along with the gesture frame source and reader
@@ -74,6 +79,13 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                     this.vgbFrameSource.AddGesture(gesture);
                 }
             }
+
+            //init LifeCycleEvents..
+            lce = new LifeCycleEvents("ASR", "FUSION", "speech-1", "acoustic", "command"); // LifeCycleEvents(string source, string target, string id, string medium, string mode)
+            //mmic = new MmiCommunication("localhost",9876,"User1", "ASR");  //PORT TO FUSION - uncomment this line to work with fusion later
+            mmic = new MmiCommunication("localhost", 8000, "User1", "ASR"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
+
+            mmic.Send(lce.NewContextRequest());
         }
 
         /// <summary> Gets the GestureResultView object which stores the detector results for display in the UI </summary>
@@ -172,21 +184,56 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                         // we only have one gesture in this source object, but you can get multiple gestures
                         foreach (Gesture gesture in this.vgbFrameSource.Gestures)
                         {
-                            //if (gesture.Name.Equals(this.seatedGestureName) && gesture.GestureType == GestureType.Discrete)
-                            //{
+                            if (gesture.Name.Equals(this.hotelGestureName) && gesture.GestureType == GestureType.Discrete)
+                            {
                                 DiscreteGestureResult result = null;
                                 discreteResults.TryGetValue(gesture, out result);
 
                                 if (result != null)
                                 {
+                                    Console.WriteLine(result.Confidence);
+
+                                    if (result.Confidence > 0.5)
+                                    {
+                                        sendCommand("HOTEL");
+                                        Console.WriteLine(" HOTEL GESTURE DETECTED ");
+                                    }
                                     // update the GestureResultView object with new gesture result values
                                     this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence);
                                 }
-                            //}
+                            }
+
+                            if (gesture.Name.Equals(this.flightGestureName) && gesture.GestureType == GestureType.Discrete)
+                            {
+                                DiscreteGestureResult result = null;
+                                discreteResults.TryGetValue(gesture, out result);
+
+                                if (result != null)
+                                {
+                                    Console.WriteLine(result.Confidence);
+
+                                    if (result.Confidence > 0.5)
+                                    {
+                                        sendCommand(" FLIGHT GESTURE DETECTED ");
+                                    }
+                                    // update the GestureResultView object with new gesture result values
+                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence);
+                                }
+                            }
                         }
                     }
                 }
             }
+        }
+
+        private void sendCommand(string command)
+        {
+            //SEND
+            // IMPORTANT TO KEEP THE FORMAT {"recognized":["GESTURE","FLIGHT"]}
+            string json = "{ \"recognized\":[\"GESTURE\",\"" + command + "\"] }";
+
+            var exNot = lce.ExtensionNotification("", "", 100, json);
+            mmic.Send(exNot);
         }
 
         /// <summary>
