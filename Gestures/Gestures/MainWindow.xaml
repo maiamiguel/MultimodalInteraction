@@ -48,7 +48,7 @@
             </Grid.RowDefinitions>
 
             <Grid Margin="10">
-                <ListView Name="lbTodoList" Background="LightGray" MouseUp="listView1_Click">
+                <ListView Name="lbTodoList" Background="LightGray" MouseUp="ListView1_Click">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,2" >

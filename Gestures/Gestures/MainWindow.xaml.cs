@@ -73,7 +73,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         }
         */
 
-        private void listView1_Click(object sender, EventArgs e)
+        private void ListView1_Click(object sender, EventArgs e)
         {
             /*clickCounter++;
 
@@ -103,11 +103,11 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                         Console.WriteLine(item.Title);
                         if (item.Title.Contains("Voo"))
                         {
-                            typeSelected = "Voo";
+                            typeSelected = "FLIGHT";
                         }
                         else
                         {
-                            typeSelected = "Hotel";
+                            typeSelected = "HOTEL";
                         }
                     }
                 }
@@ -119,17 +119,17 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                         Console.WriteLine(destination.Title);
                         if (destination.Title.Contains("Paris"))
                         {
-                            destinationSelected = "Paris";
+                            destinationSelected = "PARIS";
                         }
                         else if(destination.Title.Contains("Londres"))
                         {
-                            destinationSelected = "Londres";
+                            destinationSelected = "LONDON";
                         }
                         else if (destination.Title.Contains("Roma"))
                         {
-                            destinationSelected = "Roma";
+                            destinationSelected = "ROME";
                         }
-                        sendCommand(typeSelected, destinationSelected);
+                        SendCommand(typeSelected, destinationSelected);
                     }
                 }
             }
@@ -139,11 +139,11 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             lbTodoList.ItemsSource = destinations;
         }
 
-        private void sendCommand(string type, string destination)
+        private void SendCommand(string type, string destination)
         {
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["GESTURE","FLIGHT"]}
-            string json = "{ \"recognized\":[\"" + type + "\"+,\"" + destination + "\"] }";
+            string json = "{ \"recognized\":[\"" + type + "\",\"" + destination + "\"] }";
 
             var exNot = lce.ExtensionNotification("", "", 100, json);
             mmic.Send(exNot);

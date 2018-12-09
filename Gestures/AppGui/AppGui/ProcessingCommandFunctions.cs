@@ -50,14 +50,6 @@ namespace AppGui
                 firstTime = false;
             }
 
-            if (type == "GESTURE")
-            {
-                if (city == "FLIGHT")
-                {
-                    Console.WriteLine("GESTURE FLIGHT!");
-                }
-            }
-
             if (type == "M1")
             {
                 Random rnd = new Random();

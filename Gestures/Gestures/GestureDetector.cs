@@ -201,7 +201,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                     {
                                         Console.WriteLine(" HOTEL GESTURE DETECTED ");
                                         //main.updateList(1);
-                                        sendCommand("HOTEL");
+                                        SendCommand("HOTEL");
                                     }
                                     // update the GestureResultView object with new gesture result values
                                     this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence , this.flightGestureName);
@@ -218,7 +218,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                     Console.WriteLine(result.Confidence);
                                     if (result.Confidence > 0.6)
                                     {
-                                        sendCommand(" FLIGHT GESTURE DETECTED ");
+                                        SendCommand(" FLIGHT GESTURE DETECTED ");
                                         //main.updateList(2);
                                     }
                                     // update the GestureResultView object with new gesture result values
@@ -236,7 +236,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                     Console.WriteLine(result.Confidence);
                                     if (result.Confidence > 0.6)
                                     {
-                                        sendCommand(" FLIGHT GESTURE DETECTED ");
+                                        SendCommand(" FLIGHT GESTURE DETECTED ");
                                         //main.updateList(2);
                                     }
                                     // update the GestureResultView object with new gesture result values
@@ -249,7 +249,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             }
         }
 
-        private void sendCommand(string command)
+        private void SendCommand(string command)
         {
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["GESTURE","FLIGHT"]}
