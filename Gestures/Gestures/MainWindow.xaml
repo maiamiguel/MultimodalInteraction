@@ -48,7 +48,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Canvas Name="canvas" Width="{Binding ElementName=contentGrid, Path=ActualWidth}" Height="{Binding ElementName=contentGrid, Path=ActualHeight}">
+            <Canvas Name="canvas" Width="{Binding ElementName=contentGrid, Path=ActualWidth}" Height="{Binding ElementName=contentGrid, Path=ActualHeight}" Panel.ZIndex="99">
                 <Controls:KinectCursor x:Name="cursor" Width="40" Height="40" />
             </Canvas>
 

@@ -50,15 +50,27 @@ namespace AppGui
                 firstTime = false;
             }
 
-            if (type == "SEARCH") // To complete...
+            if (type == "SEARCH")
             {
                 if (city == "FLIGHT")
                 {
-
+                    // go to home page
+                    driver.Navigate().GoToUrl("https://www.cleartrip.com/");
+                    // click country button
+                    driver.FindElement(By.XPath("//*[@id='userAccountNav']/nav/ul/li[2]/a")).Click();
+                    // select US country
+                    driver.FindElement(By.XPath("//*[@id='countryForm']/li[8]/a")).Click();
                 }
                 else if (city == "HOTEL")
                 {
-
+                    // go to home page
+                    driver.Navigate().GoToUrl("https://www.cleartrip.com/");
+                    // click country button
+                    driver.FindElement(By.XPath("//*[@id='userAccountNav']/nav/ul/li[2]/a")).Click();
+                    // select US country
+                    driver.FindElement(By.XPath("//*[@id='countryForm']/li[8]/a")).Click();
+                    // click hotels link
+                    driver.FindElement(By.XPath("//*[@id='Home']/div/aside[1]/nav/ul[1]/li[2]/a")).Click();
                 }
             }
 

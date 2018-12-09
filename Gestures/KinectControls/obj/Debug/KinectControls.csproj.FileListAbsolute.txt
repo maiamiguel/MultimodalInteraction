@@ -1,0 +1,12 @@
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\bin\Debug\KinectControls.dll
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\bin\Debug\KinectControls.pdb
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\bin\Debug\Microsoft.Kinect.dll
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\bin\Debug\Microsoft.Kinect.xml
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\obj\Debug\KinectCursor.baml
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\obj\Debug\KinectCursor.g.cs
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\obj\Debug\KinectControls_MarkupCompile.cache
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\obj\Debug\KinectControls.g.resources
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\obj\Debug\KinectControls.csproj.CoreCompileInputs.cache
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\obj\Debug\KinectControls.csproj.CopyComplete
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\obj\Debug\KinectControls.dll
+C:\Users\NelsonCosta\Desktop\IM_P3_Main\MultimodalInteraction\Gestures\KinectControls\obj\Debug\KinectControls.pdb
