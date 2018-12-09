@@ -25,6 +25,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         /// <summary> Name of the discrete gesture in the database that we want to track </summary>
         private readonly string hotelGestureName = "Hotel";
         private readonly string flightGestureName = "flight";
+        private readonly string selectGestureName = "Select";
 
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
@@ -35,12 +36,14 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
 
+        private MainWindow main;
+
         /// <summary>
         /// Initializes a new instance of the GestureDetector class along with the gesture frame source and reader
         /// </summary>
         /// <param name="kinectSensor">Active sensor to initialize the VisualGestureBuilderFrameSource object with</param>
         /// <param name="gestureResultView">GestureResultView object to store gesture results of a single body to</param>
-        public GestureDetector(KinectSensor kinectSensor, GestureResultView gestureResultView)
+        public GestureDetector(KinectSensor kinectSensor, GestureResultView gestureResultView, MainWindow main)
         {
             if (kinectSensor == null)
             {
@@ -51,7 +54,8 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             {
                 throw new ArgumentNullException("gestureResultView");
             }
-            
+
+            this.main = main;
             this.GestureResultView = gestureResultView;
             
             // create the vgb source. The associated body tracking ID will be set when a valid body frame arrives from the sensor.
@@ -193,13 +197,14 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 {
                                     Console.WriteLine(result.Confidence);
 
-                                    if (result.Confidence > 0.5)
+                                    if (result.Confidence > 0.6)
                                     {
-                                        sendCommand("HOTEL");
                                         Console.WriteLine(" HOTEL GESTURE DETECTED ");
+                                        //main.updateList(1);
+                                        sendCommand("HOTEL");
                                     }
                                     // update the GestureResultView object with new gesture result values
-                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence);
+                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence , this.flightGestureName);
                                 }
                             }
 
@@ -211,13 +216,31 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 if (result != null)
                                 {
                                     Console.WriteLine(result.Confidence);
-
-                                    if (result.Confidence > 0.5)
+                                    if (result.Confidence > 0.6)
                                     {
                                         sendCommand(" FLIGHT GESTURE DETECTED ");
+                                        //main.updateList(2);
                                     }
                                     // update the GestureResultView object with new gesture result values
-                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence);
+                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.flightGestureName);
+                                }
+                            }
+
+                            if (gesture.Name.Equals(this.selectGestureName) && gesture.GestureType == GestureType.Discrete)
+                            {
+                                DiscreteGestureResult result = null;
+                                discreteResults.TryGetValue(gesture, out result);
+
+                                if (result != null)
+                                {
+                                    Console.WriteLine(result.Confidence);
+                                    if (result.Confidence > 0.6)
+                                    {
+                                        sendCommand(" FLIGHT GESTURE DETECTED ");
+                                        //main.updateList(2);
+                                    }
+                                    // update the GestureResultView object with new gesture result values
+                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.flightGestureName);
                                 }
                             }
                         }
@@ -244,7 +267,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private void Source_TrackingIdLost(object sender, TrackingIdLostEventArgs e)
         {
             // update the GestureResultView object to show the 'Not Tracked' image in the UI
-            this.GestureResultView.UpdateGestureResult(false, false, 0.0f);
+            this.GestureResultView.UpdateGestureResult(false, false, 0.0f, null);
         }
     }
 }

@@ -45,13 +45,13 @@ C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestos\Gestures\obj\x
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestos\Gestures\obj\x86\Debug\DiscreteGestureBasics-WPF.exe
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestos\Gestures\obj\x86\Debug\DiscreteGestureBasics-WPF.pdb
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestos\Gestures\bin\x86\Debug\Database\Gestures.gbd
-C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\Database\Gestures.gbd
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\Database\Seated.gbd
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\DiscreteGestureBasics-WPF.exe.config
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\DiscreteGestureBasics-WPF.exe
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\DiscreteGestureBasics-WPF.pdb
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\Microsoft.Kinect.dll
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\Microsoft.Kinect.VisualGestureBuilder.dll
+C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\mmisharp.dll
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\Microsoft.Kinect.xml
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\Microsoft.Kinect.VisualGestureBuilder.xml
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\obj\x86\Debug\DiscreteGestureBasics-WPF.csprojAssemblyReference.cache
@@ -69,4 +69,4 @@ C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\obj
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\obj\x86\Debug\DiscreteGestureBasics-WPF.csproj.CopyComplete
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\obj\x86\Debug\DiscreteGestureBasics-WPF.exe
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\obj\x86\Debug\DiscreteGestureBasics-WPF.pdb
-C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\mmisharp.dll
+C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Gestures\Gestures\bin\x86\Debug\Database\Gestures.gbd

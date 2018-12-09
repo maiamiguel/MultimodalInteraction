@@ -195,7 +195,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         /// <param name="isBodyTrackingIdValid">True, if the body associated with the GestureResultView object is still being tracked</param>
         /// <param name="isGestureDetected">True, if the discrete gesture is currently detected for the associated body</param>
         /// <param name="detectionConfidence">Confidence value for detection of the discrete gesture</param>
-        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool isGestureDetected, float detectionConfidence)
+        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool isGestureDetected, float detectionConfidence, String gestureName)
         {
             this.IsTracked = isBodyTrackingIdValid;
             this.Confidence = 0.0f;
@@ -214,7 +214,14 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                 if (this.Detected)
                 {
                     this.Confidence = detectionConfidence;
-                    this.ImageSource = this.seatedImage;
+                    if (gestureName.Equals("Hotel"))
+                    {
+                        this.ImageSource = this.seatedImage;
+                    }
+                    if (gestureName.Equals("flight"))
+                    {
+                        this.ImageSource = this.notTrackedImage;
+                    }
                 }
                 else
                 {
