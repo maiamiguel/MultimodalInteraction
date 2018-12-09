@@ -50,6 +50,18 @@ namespace AppGui
                 firstTime = false;
             }
 
+            if (type == "SEARCH") // To complete...
+            {
+                if (city == "FLIGHT")
+                {
+
+                }
+                else if (city == "HOTEL")
+                {
+
+                }
+            }
+
             if (type == "M1")
             {
                 Random rnd = new Random();

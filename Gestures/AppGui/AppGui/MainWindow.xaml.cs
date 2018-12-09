@@ -61,8 +61,9 @@ namespace AppGui
                     ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
                     break;
 
-                case "SEARCH": // Not used
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[1].ToString(), (string)json.recognized[2].ToString());
+                case "SEARCH":
+                    //ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
+                    Console.WriteLine("SEARCH command received!");
                     break;
 
                 case "CLOSE":
@@ -72,12 +73,12 @@ namespace AppGui
 
                 case "FLIGHT":
                     //ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
-                    Console.WriteLine("FLIGHT command received");
+                    Console.WriteLine("FLIGHT command received!");
                     break;
 
                 case "HOTEL":
                     //ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
-                    Console.WriteLine("HOTEL command received");
+                    Console.WriteLine("HOTEL command received!");
                     break;
             }
         }

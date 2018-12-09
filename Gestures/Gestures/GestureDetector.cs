@@ -196,7 +196,6 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 if (result != null)
                                 {
                                     Console.WriteLine(result.Confidence);
-
                                     if (result.Confidence > 0.6)
                                     {
                                         Console.WriteLine(" HOTEL GESTURE DETECTED ");
@@ -218,8 +217,9 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                     Console.WriteLine(result.Confidence);
                                     if (result.Confidence > 0.6)
                                     {
-                                        SendCommand(" FLIGHT GESTURE DETECTED ");
+                                        Console.WriteLine(" FLIGHT GESTURE DETECTED ");
                                         //main.updateList(2);
+                                        SendCommand("FLIGHT");
                                     }
                                     // update the GestureResultView object with new gesture result values
                                     this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.flightGestureName);
@@ -236,8 +236,9 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                     Console.WriteLine(result.Confidence);
                                     if (result.Confidence > 0.6)
                                     {
-                                        SendCommand(" FLIGHT GESTURE DETECTED ");
+                                        Console.WriteLine(" SELECT GESTURE DETECTED ");
                                         //main.updateList(2);
+                                        MouseHook.SendClick();
                                     }
                                     // update the GestureResultView object with new gesture result values
                                     this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.flightGestureName);
@@ -252,8 +253,8 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private void SendCommand(string command)
         {
             //SEND
-            // IMPORTANT TO KEEP THE FORMAT {"recognized":["GESTURE","FLIGHT"]}
-            string json = "{ \"recognized\":[\"GESTURE\",\"" + command + "\"] }";
+            // IMPORTANT TO KEEP THE FORMAT {"recognized":["SEARCH","FLIGHT"]}
+            string json = "{ \"recognized\":[\"SEARCH\",\"" + command + "\"] }";
 
             var exNot = lce.ExtensionNotification("", "", 100, json);
             mmic.Send(exNot);

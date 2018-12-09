@@ -52,7 +52,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private List<TodoItem> types = new List<TodoItem>();
         private List<TodoItem> destinations = new List<TodoItem>();
         private MainWindow main;
-        private int clickCounter;
+        //private int clickCounter; // Not used
         private string typeSelected;
         private string destinationSelected;
 
@@ -142,7 +142,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private void SendCommand(string type, string destination)
         {
             //SEND
-            // IMPORTANT TO KEEP THE FORMAT {"recognized":["GESTURE","FLIGHT"]}
+            // IMPORTANT TO KEEP THE FORMAT {"recognized":["FLIGHT","PARIS"]}
             string json = "{ \"recognized\":[\"" + type + "\",\"" + destination + "\"] }";
 
             var exNot = lce.ExtensionNotification("", "", 100, json);
@@ -343,7 +343,17 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                         {
                             if (body.IsTracked)
                             {
-                                int bodyId = (int) body.TrackingId;
+                                Joint handRight = body.Joints[JointType.HandRight];
+
+                                CameraSpacePoint skeletonPoint = handRight.Position;
+
+                                DepthSpacePoint depthPoint = this.kinectSensor.CoordinateMapper.MapCameraPointToDepthSpace(skeletonPoint);
+
+                                this.Dispatcher.Invoke(() =>
+                                {
+                                    cursor.Flip(handRight);
+                                    cursor.Update(depthPoint);
+                                });
                             }
                         }
                     }
