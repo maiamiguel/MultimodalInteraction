@@ -26,6 +26,8 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private readonly string hotelGestureName = "Hotel";
         private readonly string flightGestureName = "flight";
         private readonly string selectGestureName = "Select";
+        private readonly string upGestureName = "Up_Right";
+        private readonly string DownGestureName = "Down_Left";
 
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
@@ -203,7 +205,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                         SendCommand("HOTEL");
                                     }
                                     // update the GestureResultView object with new gesture result values
-                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence , this.flightGestureName);
+                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence , this.hotelGestureName);
                                 }
                             }
 
@@ -234,14 +236,50 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 if (result != null)
                                 {
                                     Console.WriteLine(result.Confidence);
-                                    if (result.Confidence > 0.6)
+                                    if (result.Confidence > 0.4)
                                     {
                                         Console.WriteLine(" SELECT GESTURE DETECTED ");
-                                        //main.updateList(2);
-                                        MouseHook.SendClick();
+                                        main.updateList(3);
+                                        //MouseHook.SendClick();
                                     }
                                     // update the GestureResultView object with new gesture result values
-                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.flightGestureName);
+                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.selectGestureName);
+                                }
+                            }
+
+                            if (gesture.Name.Equals(this.upGestureName) && gesture.GestureType == GestureType.Discrete)
+                            {
+                                DiscreteGestureResult result = null;
+                                discreteResults.TryGetValue(gesture, out result);
+
+                                if (result != null)
+                                {
+                                    Console.WriteLine(result.Confidence);
+                                    if (result.Confidence > 0.4)
+                                    {
+                                        Console.WriteLine(" UP GESTURE DETECTED ");
+                                        main.updateList(2);
+                                    }
+                                    // update the GestureResultView object with new gesture result values
+                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.upGestureName);
+                                }
+                            }
+
+                            if (gesture.Name.Equals(this.DownGestureName) && gesture.GestureType == GestureType.Discrete)
+                            {
+                                DiscreteGestureResult result = null;
+                                discreteResults.TryGetValue(gesture, out result);
+
+                                if (result != null)
+                                {
+                                    Console.WriteLine(result.Confidence);
+                                    if (result.Confidence > 0.4)
+                                    {
+                                        Console.WriteLine(" DOWN GESTURE DETECTED ");
+                                        main.updateList(1);
+                                    }
+                                    // update the GestureResultView object with new gesture result values
+                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.DownGestureName);
                                 }
                             }
                         }

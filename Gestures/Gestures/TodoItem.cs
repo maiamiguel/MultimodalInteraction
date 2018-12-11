@@ -11,14 +11,35 @@
 // </Description>
 //----------------------------------------------------------------------------------------------------
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
 {
-    internal class TodoItem
+    internal class TodoItem : INotifyPropertyChanged
     {
         public TodoItem()
         {
         }
 
         public string Title { get; set; }
+        public string _Color;
+        public string Color { get { return _Color; } set
+            {
+                _Color = value;
+                NotifyPropertyChanged(nameof(Color));
+
+            }
+        }
+        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }

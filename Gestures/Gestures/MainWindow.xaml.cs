@@ -25,7 +25,6 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
     using System.Drawing;
     using mmisharp;
 
-
     /// <summary>
     /// Interaction logic for the MainWindow
     /// </summary>
@@ -59,19 +58,33 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
 
-        /*
+        
         public void updateList(int list)
         {
-            if (list == 1)
+            Console.WriteLine("CHEGOU AQUIIIII");
+            if (lbTodoList.ItemsSource == types)
+            {
+                Console.WriteLine("TYPEPPEPEPEPEPEPEPEPEPPEPPAKLFNAKLSJNKJLASBKJ");
+            }
+
+            if (list == 1)  //DOWN
+            {
+                types[0].Color = "";
+                types[1].Color = "#ff00BCF2";
+            }
+            if (list == 2)  //UP
             {
                 lbTodoList.ItemsSource = types;
+                types[0].Color = "#ff00BCF2";
+                types[1].Color = "";
             }
-            if (list == 2)
+            if (list == 3)  //SELECT
             {
+                Console.WriteLine("SELECTTTT");
                 lbTodoList.ItemsSource = destinations;
             }
         }
-        */
+        
 
         private void ListView1_Click(object sender, EventArgs e)
         {
@@ -94,7 +107,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             //var firstSelectedItem = lbTodoList.SelectedItems[0];
             //Console.WriteLine(firstSelectedItem);
 
-            foreach(TodoItem selected in lbTodoList.SelectedItems)
+            foreach (TodoItem selected in lbTodoList.SelectedItems)
             {
                 foreach (TodoItem item in types)
                 {
@@ -104,6 +117,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                         if (item.Title.Contains("Voo"))
                         {
                             typeSelected = "FLIGHT";
+                            types[0].Color = "#ff52318f";
                         }
                         else
                         {
@@ -111,7 +125,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                         }
                     }
                 }
-
+                /*
                 foreach (TodoItem destination in destinations)
                 {
                     if (selected.Equals(destination))
@@ -136,7 +150,8 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
 
             lbTodoList.SelectedItems.Clear();
 
-            lbTodoList.ItemsSource = destinations;
+            lbTodoList.ItemsSource = destinations;*/
+            }
         }
 
         private void SendCommand(string type, string destination)
@@ -155,10 +170,10 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
 
             InitializeComponent();
 
-            types.Add(new TodoItem() { Title = "Pesquisar Voo" });
+            types.Add(new TodoItem() { Title = "Pesquisar Voo" , Color = "#ff00BCF2" });
             types.Add(new TodoItem() { Title = "Pesquisar Hotel" });
 
-            destinations.Add(new TodoItem() { Title = "Paris" });
+            destinations.Add(new TodoItem() { Title = "Paris", Color = "#ff00BCF2" });
             destinations.Add(new TodoItem() { Title = "Londres" });
             destinations.Add(new TodoItem() { Title = "Roma" });
 
@@ -348,12 +363,12 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 CameraSpacePoint skeletonPoint = handRight.Position;
 
                                 DepthSpacePoint depthPoint = this.kinectSensor.CoordinateMapper.MapCameraPointToDepthSpace(skeletonPoint);
-
+                                /*
                                 this.Dispatcher.Invoke(() =>
                                 {
                                     cursor.Flip(handRight);
                                     cursor.Update(depthPoint);
-                                });
+                                });*/
                             }
                         }
                     }
