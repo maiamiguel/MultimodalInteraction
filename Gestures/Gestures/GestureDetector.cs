@@ -8,9 +8,14 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
 {
     using System;
     using System.Collections.Generic;
+    using System.Timers;
     using Microsoft.Kinect;
     using Microsoft.Kinect.VisualGestureBuilder;
     using mmisharp;
+    using System.Threading.Tasks;
+    using System.Windows.Shapes;
+    using System.Windows.Threading;
+
 
     /// <summary>
     /// Gesture Detector class which listens for VisualGestureBuilderFrame events from the service
@@ -24,10 +29,11 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
 
         /// <summary> Name of the discrete gesture in the database that we want to track </summary>
         private readonly string hotelGestureName = "Hotel";
-        private readonly string flightGestureName = "flight";
+        private readonly string flightGestureName = "Flight";
         private readonly string selectGestureName = "Select";
         private readonly string upGestureName = "Up_Right";
         private readonly string DownGestureName = "Down_Left";
+        private readonly string ByeGestureName = "Bye";
 
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
@@ -39,14 +45,21 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private MmiCommunication mmic;
 
         private MainWindow main;
+        Timer gestureTimer;
+        private bool detectingGesture = true;
+        public Dispatcher Dispatcher { get; }
+        private Ellipse circle;
 
         /// <summary>
         /// Initializes a new instance of the GestureDetector class along with the gesture frame source and reader
         /// </summary>
         /// <param name="kinectSensor">Active sensor to initialize the VisualGestureBuilderFrameSource object with</param>
         /// <param name="gestureResultView">GestureResultView object to store gesture results of a single body to</param>
-        public GestureDetector(KinectSensor kinectSensor, GestureResultView gestureResultView, MainWindow main)
+        public GestureDetector(KinectSensor kinectSensor, GestureResultView gestureResultView, MainWindow main, System.Windows.Shapes.Ellipse circle, Dispatcher dispatcher)
         {
+            this.circle = circle;
+            this.Dispatcher = dispatcher;
+
             if (kinectSensor == null)
             {
                 throw new ArgumentNullException("kinectSensor");
@@ -185,7 +198,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                     // get the discrete gesture results which arrived with the latest frame
                     IReadOnlyDictionary<Gesture, DiscreteGestureResult> discreteResults = frame.DiscreteGestureResults;
 
-                    if (discreteResults != null)
+                    if (discreteResults != null && detectingGesture)
                     {
                         // we only have one gesture in this source object, but you can get multiple gestures
                         foreach (Gesture gesture in this.vgbFrameSource.Gestures)
@@ -201,8 +214,20 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                     if (result.Confidence > 0.6)
                                     {
                                         Console.WriteLine(" HOTEL GESTURE DETECTED ");
-                                        //main.updateList(1);
-                                        SendCommand("HOTEL");
+                                        SendCommand("M1");
+
+                                        detectingGesture = false;
+                                        Console.WriteLine("Kinect stoping detecting gestures.");
+
+                                        gestureTimer = new Timer(8 * 1000);
+                                        gestureTimer.Elapsed += OnGestureEnded;
+                                        gestureTimer.AutoReset = false;
+                                        gestureTimer.Enabled = true;
+
+                                        this.Dispatcher.Invoke(() =>
+                                        {
+                                            circle.Fill = System.Windows.Media.Brushes.Red;
+                                        });
                                     }
                                     // update the GestureResultView object with new gesture result values
                                     this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence , this.hotelGestureName);
@@ -217,11 +242,23 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 if (result != null)
                                 {
                                     Console.WriteLine(result.Confidence);
-                                    if (result.Confidence > 0.6)
+                                    if (result.Confidence > 0.4)
                                     {
                                         Console.WriteLine(" FLIGHT GESTURE DETECTED ");
-                                        //main.updateList(2);
-                                        SendCommand("FLIGHT");
+                                        SendCommand("M2");
+
+                                        detectingGesture = false;
+                                        Console.WriteLine("Kinect stoping detecting gestures.");
+
+                                        gestureTimer = new Timer(8 * 1000);
+                                        gestureTimer.Elapsed += OnGestureEnded;
+                                        gestureTimer.AutoReset = false;
+                                        gestureTimer.Enabled = true;
+
+                                        this.Dispatcher.Invoke(() =>
+                                        {
+                                            circle.Fill = System.Windows.Media.Brushes.Red;
+                                        });
                                     }
                                     // update the GestureResultView object with new gesture result values
                                     this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.flightGestureName);
@@ -240,7 +277,19 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                     {
                                         Console.WriteLine(" SELECT GESTURE DETECTED ");
                                         main.updateList(3);
-                                        //MouseHook.SendClick();
+
+                                        detectingGesture = false;
+                                        Console.WriteLine("Kinect stoping detecting gestures.");
+
+                                        gestureTimer = new Timer(40 * 1000);
+                                        gestureTimer.Elapsed += OnGestureEnded;
+                                        gestureTimer.AutoReset = false;
+                                        gestureTimer.Enabled = true;
+
+                                        this.Dispatcher.Invoke(() =>
+                                        {
+                                            circle.Fill = System.Windows.Media.Brushes.Red;
+                                        });
                                     }
                                     // update the GestureResultView object with new gesture result values
                                     this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.selectGestureName);
@@ -255,10 +304,23 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 if (result != null)
                                 {
                                     Console.WriteLine(result.Confidence);
-                                    if (result.Confidence > 0.4)
+                                    if (result.Confidence > 0.5)
                                     {
                                         Console.WriteLine(" UP GESTURE DETECTED ");
                                         main.updateList(2);
+
+                                        detectingGesture = false;
+                                        Console.WriteLine("Kinect stoping detecting gestures.");
+
+                                        gestureTimer = new Timer(2 * 1000);
+                                        gestureTimer.Elapsed += OnGestureEnded;
+                                        gestureTimer.AutoReset = false;
+                                        gestureTimer.Enabled = true;
+
+                                        this.Dispatcher.Invoke(() =>
+                                        {
+                                            circle.Fill = System.Windows.Media.Brushes.Red;
+                                        });
                                     }
                                     // update the GestureResultView object with new gesture result values
                                     this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.upGestureName);
@@ -277,6 +339,52 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                     {
                                         Console.WriteLine(" DOWN GESTURE DETECTED ");
                                         main.updateList(1);
+
+                                        detectingGesture = false;
+                                        Console.WriteLine("Kinect stoping detecting gestures.");
+
+                                        gestureTimer = new Timer(2 * 1000);
+                                        gestureTimer.Elapsed += OnGestureEnded;
+                                        gestureTimer.AutoReset = false;
+                                        gestureTimer.Enabled = true;
+
+                                        this.Dispatcher.Invoke(() =>
+                                        {
+                                            circle.Fill = System.Windows.Media.Brushes.Red;
+                                        });
+                                    }
+                                    // update the GestureResultView object with new gesture result values
+                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.DownGestureName);
+                                }
+                            }
+
+                            if (gesture.Name.Equals(this.ByeGestureName) && gesture.GestureType == GestureType.Discrete)
+                            {
+                                DiscreteGestureResult result = null;
+                                discreteResults.TryGetValue(gesture, out result);
+
+                                if (result != null)
+                                {
+                                    Console.WriteLine(result.Confidence);
+                                    if (result.Confidence > 0.5)
+                                    {
+                                        Console.WriteLine(" BYE GESTURE DETECTED ");
+                                        SendCommand("CLOSE");
+
+                                        detectingGesture = false;
+                                        Console.WriteLine("Kinect stoping detecting gestures.");
+
+                                        gestureTimer = new Timer(2 * 1000);
+                                        gestureTimer.Elapsed += OnGestureEnded;
+                                        gestureTimer.AutoReset = false;
+                                        gestureTimer.Enabled = true;
+
+                                        this.Dispatcher.Invoke(() =>
+                                        {
+                                            circle.Fill = System.Windows.Media.Brushes.Red;
+                                        });
+
+                                        Environment.Exit(0);
                                     }
                                     // update the GestureResultView object with new gesture result values
                                     this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.DownGestureName);
@@ -288,12 +396,22 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             }
         }
 
+        private void OnGestureEnded(object sender, ElapsedEventArgs e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                circle.Fill = System.Windows.Media.Brushes.Green;
+            });
+
+            Console.WriteLine("Kinect detecting gestures.");
+            detectingGesture = true;
+        }
+
         private void SendCommand(string command)
         {
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["SEARCH","FLIGHT"]}
-            string json = "{ \"recognized\":[\"SEARCH\",\"" + command + "\"] }";
-
+            string json = "{ \"recognized\":[\"" + command + "\",\"\"] }";
             var exNot = lce.ExtensionNotification("", "", 100, json);
             mmic.Send(exNot);
         }

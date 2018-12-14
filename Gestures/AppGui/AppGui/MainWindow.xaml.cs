@@ -62,7 +62,7 @@ namespace AppGui
                     break;
 
                 case "SEARCH":
-                    //ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
                     Console.WriteLine("SEARCH command received!");
                     break;
 
@@ -72,12 +72,12 @@ namespace AppGui
                     break;
 
                 case "FLIGHT":
-                    //ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
                     Console.WriteLine("FLIGHT command received!");
                     break;
 
                 case "HOTEL":
-                    //ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
                     Console.WriteLine("HOTEL command received!");
                     break;
             }

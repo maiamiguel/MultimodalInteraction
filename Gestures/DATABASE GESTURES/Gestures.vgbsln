@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GestureBuilderFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<SolutionFile>
+		<Header>
+			<Date>2018-12-13</Date>
+			<Time>23:53:45.6935448+00:00</Time>
+			<Version>1</Version>
+			<Type>Solution</Type>
+			<ID>1db6a60e-b521-4739-a59f-5e05e00368cf</ID>
+		</Header>
+		<Solution_Data>
+			<Files>
+				<Name />
+				<Content>
+					<Items>
+						<File>Bye.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Bye.a.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Down_Left.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Down_Left.a.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Flight.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Flight.a.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Hotel.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Hotel.a.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Select.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Select.a.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Up_Right.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Up_Right.a.vgbproj</File>
+					</Items>
+				</Content>
+			</Files>
+		</Solution_Data>
+		<UI_State />
+		<Attributes />
+	</SolutionFile>
+</GestureBuilderFile>

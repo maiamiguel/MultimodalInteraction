@@ -49,7 +49,7 @@
             </Grid.RowDefinitions>
 
             <Grid Margin="10">
-                <ListView Name="lbTodoList" Background="LightGray" MouseUp="ListView1_Click">
+                <ListView Name="lbTodoList" Background="LightGray">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,2" >
@@ -58,7 +58,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border  Height="Auto" Width="Auto">
-                                    <TextBlock FontSize="20" Text="{Binding Title}" Background="{Binding Color}" />
+                                    <TextBlock FontSize="15" Text="{Binding Title}" Background="{Binding Color}" />
                                 </Border>
                             </Grid>
                         </DataTemplate>
@@ -67,10 +67,11 @@
             </Grid>
 
             <StackPanel Orientation="Vertical" Grid.Column="2" Grid.RowSpan="3" Margin="20 10 0 10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Ellipse x:Name="circle" Height="55" VerticalAlignment="Top" Fill="Green" Margin="195,117,210,0"/>
                 <Viewbox x:Name="kinectBodyViewbox">
                     <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
                 </Viewbox>
-                <TextBlock Text="This program can track up to 6 people simultaneously. Stand in front of the sensor to get tracked. Sit down to trigger the 'Seated' gesture." TextWrapping="Wrap" Margin="5 10 5 5" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="14"/>
+                <TextBlock Text="Stand in front of the sensor to get tracked." TextWrapping="Wrap" Margin="5 10 5 5" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="14"/>
             </StackPanel>
         </Grid>
 

@@ -48,136 +48,72 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         /// <summary> List of gesture detectors, there will be one detector created for each potential body (max of 6) </summary>
         private List<GestureDetector> gestureDetectorList = null;
 
-        private List<TodoItem> types = new List<TodoItem>();
-        private List<TodoItem> destinations = new List<TodoItem>();
+        private List<TodoItem> options = new List<TodoItem>();
         private MainWindow main;
-        //private int clickCounter; // Not used
         private string typeSelected;
         private string destinationSelected;
 
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
+        private int position = 0;
 
-        
-        public void updateList(int list)
-        {
-            Console.WriteLine("CHEGOU AQUIIIII");
-            if (lbTodoList.ItemsSource == types)
+        public void updateList(int list){
+            Console.WriteLine("--------------------------------------------------------------------------\n");
+            Console.WriteLine("OPTIONS ARRAY BEING DISPLAYED!!");
+            Console.WriteLine("--------------------------------------------------------------------------\n");
+
+            Console.WriteLine("POSITION -> : ");
+            Console.WriteLine(position);
+
+            if (position == 0)
             {
-                Console.WriteLine("TYPEPPEPEPEPEPEPEPEPEPPEPPAKLFNAKLSJNKJLASBKJ");
+                position = 0;
             }
 
-            if (list == 1)  //DOWN
+            if (position == 5)
             {
-                types[0].Color = "";
-                types[1].Color = "#ff00BCF2";
+                position = 5;
             }
-            if (list == 2)  //UP
+
+            if (list == 1 && position < 5)  //DOWN
             {
-                lbTodoList.ItemsSource = types;
-                types[0].Color = "#ff00BCF2";
-                types[1].Color = "";
+                foreach(TodoItem i in options)
+                {
+                    i.Color = "";
+                }
+                position++;
+                options[position].Color = "#ff00BCF2";
+            }
+
+            if (list == 2 && position > 0)  //UP
+            {
+                foreach (TodoItem i in options)
+                {
+                    i.Color = "";
+                }
+                position--;
+                options[position].Color = "#ff00BCF2";
             }
             if (list == 3)  //SELECT
             {
-                Console.WriteLine("SELECTTTT");
-                lbTodoList.ItemsSource = destinations;
-            }
-        }
-        
-
-        private void ListView1_Click(object sender, EventArgs e)
-        {
-            /*clickCounter++;
-
-            if ( clickCounter == 2)
-            {
-                lbTodoList.SelectedItems.Clear();
-                lbTodoList.ItemsSource = types;
-            }
-
-            if (clickCounter == 1)
-            {
-                lbTodoList.SelectedItems.Clear();
-                lbTodoList.ItemsSource = destinations;
-            }
-            */
-
-
-            //var firstSelectedItem = lbTodoList.SelectedItems[0];
-            //Console.WriteLine(firstSelectedItem);
-
-            foreach (TodoItem selected in lbTodoList.SelectedItems)
-            {
-                foreach (TodoItem item in types)
-                {
-                    if (selected.Equals(item))
-                    {
-                        Console.WriteLine(item.Title);
-                        if (item.Title.Contains("Voo"))
-                        {
-                            typeSelected = "FLIGHT";
-                            types[0].Color = "#ff52318f";
-                        }
-                        else
-                        {
-                            typeSelected = "HOTEL";
-                        }
-                    }
-                }
-                /*
-                foreach (TodoItem destination in destinations)
-                {
-                    if (selected.Equals(destination))
-                    {
-                        Console.WriteLine(destination.Title);
-                        if (destination.Title.Contains("Paris"))
-                        {
-                            destinationSelected = "PARIS";
-                        }
-                        else if(destination.Title.Contains("Londres"))
-                        {
-                            destinationSelected = "LONDON";
-                        }
-                        else if (destination.Title.Contains("Roma"))
-                        {
-                            destinationSelected = "ROME";
-                        }
-                        SendCommand(typeSelected, destinationSelected);
-                    }
-                }
-            }
-
-            lbTodoList.SelectedItems.Clear();
-
-            lbTodoList.ItemsSource = destinations;*/
+                Console.WriteLine("SELECT !");
+                SendCommand(position);
             }
         }
 
-        private void SendCommand(string type, string destination)
-        {
-            //SEND
-            // IMPORTANT TO KEEP THE FORMAT {"recognized":["FLIGHT","PARIS"]}
-            string json = "{ \"recognized\":[\"" + type + "\",\"" + destination + "\"] }";
-
-            var exNot = lce.ExtensionNotification("", "", 100, json);
-            mmic.Send(exNot);
-        }
-
-        public MainWindow()
-        {
+        public MainWindow(){
             main = this;
 
             InitializeComponent();
 
-            types.Add(new TodoItem() { Title = "Pesquisar Voo" , Color = "#ff00BCF2" });
-            types.Add(new TodoItem() { Title = "Pesquisar Hotel" });
+            options.Add(new TodoItem() { Title = "Pesquisar Voo para Paris" , Color = "#ff00BCF2" });
+            options.Add(new TodoItem() { Title = "Pesquisar Voo para Roma" });
+            options.Add(new TodoItem() { Title = "Pesquisar Voo para Londres" });
+            options.Add(new TodoItem() { Title = "Pesquisar Hotel para Paris" });
+            options.Add(new TodoItem() { Title = "Pesquisar Hotel para Roma" });
+            options.Add(new TodoItem() { Title = "Pesquisar Hotel para Londres" });
 
-            destinations.Add(new TodoItem() { Title = "Paris", Color = "#ff00BCF2" });
-            destinations.Add(new TodoItem() { Title = "Londres" });
-            destinations.Add(new TodoItem() { Title = "Roma" });
-
-            lbTodoList.ItemsSource = types;
+            lbTodoList.ItemsSource = options;
 
             // only one sensor is currently supported
             this.kinectSensor = KinectSensor.GetDefault();
@@ -218,7 +154,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             //for (int i = 0; i < maxBodies; ++i)
             //{
                 GestureResultView result = new GestureResultView(0, false, false, 0.0f);
-                GestureDetector detector = new GestureDetector(this.kinectSensor, result, this.main);
+                GestureDetector detector = new GestureDetector(this.kinectSensor, result, this.main, circle, this.Dispatcher);
                 this.gestureDetectorList.Add(detector);                
                 
                 // split gesture results across the first two columns of the content grid
@@ -249,6 +185,47 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             mmic = new MmiCommunication("localhost", 8000, "User1", "ASR"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
 
             mmic.Send(lce.NewContextRequest());
+        }
+
+        private void SendCommand(int position)
+        {
+            if (position == 0)
+            {
+                typeSelected = "FLIGHT";
+                destinationSelected = "PARIS";
+            }
+            if (position == 1)
+            {
+                typeSelected = "FLIGHT";
+                destinationSelected = "ROME";
+            }
+            if (position == 2)
+            {
+                typeSelected = "FLIGHT";
+                destinationSelected = "LONDON";
+            }
+            if (position == 3)
+            {
+                typeSelected = "HOTEL";
+                destinationSelected = "PARIS";
+            }
+            if (position == 4)
+            {
+                typeSelected = "HOTEL";
+                destinationSelected = "ROME";
+            }
+            if (position == 5)
+            {
+                typeSelected = "HOTEL";
+                destinationSelected = "LONDON";
+            }
+
+            //SEND
+            // IMPORTANT TO KEEP THE FORMAT {"recognized":["FLIGHT","PARIS"]}
+            string json = "{ \"recognized\":[\"" + typeSelected + "\",\"" + destinationSelected + "\"] }";
+
+            var exNot = lce.ExtensionNotification("", "", 100, json);
+            mmic.Send(exNot);
         }
 
         /// <summary>
