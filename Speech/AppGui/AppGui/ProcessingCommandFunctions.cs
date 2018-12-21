@@ -20,39 +20,15 @@ namespace AppGui
         private static Boolean firstHotelSearch = true;
         private static string travellers;
 
-        private static String[] M1Destinations =
-        {
-            "https://www.booking.com/searchresults.pt-pt.html?label=gen173nr-1DCAEoggI46AdIM1gEaLsBiAEBmAEfuAEXyAEM2AED6AEBiAIBqAID&sid=271d1d31a5760bfd2f7feb85e9f9d675&sb=1&src=index&src_elem=sb&error_url=https%3A%2F%2Fwww.booking.com%2Findex.pt-pt.html%3Flabel%3Dgen173nr-1DCAEoggI46AdIM1gEaLsBiAEBmAEfuAEXyAEM2AED6AEBiAIBqAID%3Bsid%3D271d1d31a5760bfd2f7feb85e9f9d675%3Bsb_price_type%3Dtotal%26%3B&ss=Maldivas&is_ski_area=0&checkin_monthday=&checkin_month=&checkin_year=&checkout_monthday=&checkout_month=&checkout_year=&no_rooms=1&group_adults=2&group_children=0&b_h4u_keep_filters=&from_sf=1" ,
-            "https://www.booking.com/searchresults.pt-pt.html?label=gen173nr-1DCAEoggI46AdIM1gEaLsBiAEBmAEfuAEXyAEM2AED6AEBiAIBqAID&sid=271d1d31a5760bfd2f7feb85e9f9d675&sb=1&src=searchresults&src_elem=sb&error_url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Flabel%3Dgen173nr-1DCAEoggI46AdIM1gEaLsBiAEBmAEfuAEXyAEM2AED6AEBiAIBqAID%3Bsid%3D271d1d31a5760bfd2f7feb85e9f9d675%3Bac_click_type%3Db%3Bac_position%3D0%3Bclass_interval%3D1%3Bdest_id%3D3978%3Bdest_type%3Dregion%3Bdtdisc%3D0%3Bfrom_sf%3D1%3Bgroup_adults%3D2%3Bgroup_children%3D0%3Binac%3D0%3Bindex_postcard%3D0%3Blabel_click%3Dundef%3Bno_rooms%3D1%3Boffset%3D0%3Bpostcard%3D0%3Braw_dest_type%3Dregion%3Broom1%3DA%252CA%3Bsb_price_type%3Dtotal%3Bsearch_selected%3D1%3Bshw_aparth%3D1%3Bslp_r_match%3D0%3Bsrc%3Dsearchresults%3Bsrc_elem%3Dsb%3Bsrpvid%3D70ec05b8dcbc0104%3Bss%3DBora%2520Bora%252C%2520Polin%25C3%25A9sia%2520Francesa%3Bss_all%3D0%3Bss_raw%3DBora%2520bora%3Bssb%3Dempty%3Bsshis%3D0%3Bssne_untouched%3DMaldivas%26%3B&ss=Bora+Bora&is_ski_area=0&ssne=Bora+Bora&ssne_untouched=Bora+Bora&region=3978&checkin_monthday=&checkin_month=&checkin_year=&checkout_monthday=&checkout_month=&checkout_year=&no_rooms=1&group_adults=2&group_children=0&b_h4u_keep_filters=&from_sf=1" ,
-            "https://www.booking.com/searchresults.pt-pt.html?label=gen173nr-1DCAEoggI46AdIM1gEaLsBiAEBmAEfuAEXyAEM2AED6AEBiAIBqAID&sid=271d1d31a5760bfd2f7feb85e9f9d675&sb=1&src=searchresults&src_elem=sb&error_url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.pt-pt.html%3Flabel%3Dgen173nr-1DCAEoggI46AdIM1gEaLsBiAEBmAEfuAEXyAEM2AED6AEBiAIBqAID%3Bsid%3D271d1d31a5760bfd2f7feb85e9f9d675%3Bclass_interval%3D1%3Bdest_id%3D3978%3Bdest_type%3Dregion%3Bdtdisc%3D0%3Bfrom_sf%3D1%3Bgroup_adults%3D2%3Bgroup_children%3D0%3Binac%3D0%3Bindex_postcard%3D0%3Blabel_click%3Dundef%3Bno_rooms%3D1%3Boffset%3D0%3Bpostcard%3D0%3Bregion%3D3978%3Broom1%3DA%252CA%3Bsb_price_type%3Dtotal%3Bshw_aparth%3D1%3Bslp_r_match%3D0%3Bsrc%3Dsearchresults%3Bsrc_elem%3Dsb%3Bsrpvid%3D70ec05be71cf027d%3Bss%3DBora%2520Bora%3Bss_all%3D0%3Bssb%3Dempty%3Bsshis%3D0%3Bssne%3DBora%2520Bora%3Bssne_untouched%3DBora%2520Bora%26%3B&ss=Tail%C3%A2ndia&is_ski_area=&ssne=Bora+Bora&ssne_untouched=Bora+Bora&checkin_monthday=&checkin_month=&checkin_year=&checkout_monthday=&checkout_month=&checkout_year=&no_rooms=1&group_adults=2&group_children=0&b_h4u_keep_filters=&from_sf=1&ss_raw=Tail%C3%A2ndia&ac_position=0&ac_langcode=pt&ac_click_type=b&dest_id=209&dest_type=country&place_id_lat=14.3594&place_id_lon=100.883&search_pageview_id=70ec05be71cf027d&search_selected=true&search_pageview_id=70ec05be71cf027d&ac_suggestion_list_length=5&ac_suggestion_theme_list_length=0"
-        };
-
         public static void AcceptCommand(String type, String city){
             Console.WriteLine("Tipo -> " + type + "     city ->   " + city);
 
             if (firstTime)
             {
                 driver = new ChromeDriver();
-                driver.Manage().Window.Maximize();
+                //driver.Manage().Window.Maximize();
                 //driver.Manage().Timeouts().ImplicitWait.Add(TimeSpan.FromSeconds(30));
                 firstTime = false;
-            }
-
-            if (type == "M1")
-            {
-                Random rnd = new Random();
-                int rand = rnd.Next(0, 2);
-                driver.Navigate().GoToUrl(M1Destinations[rand]);
-            }
-
-            if (type == "M2")
-            {
-
-            }
-
-            if (type == "M3")
-            {
-
             }
 
             if (type == "CLOSE")

@@ -48,19 +48,6 @@ namespace AppGui
                 case "O3":
                     ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
                     break;
-
-                case "M1":
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
-                    break;
-
-                case "M2":
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
-                    break;
-
-                case "M3":
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
-                    break;
-
                 case "SEARCH":
                     ProcessingCommandFunctions.AcceptCommand((string)json.recognized[1].ToString(), (string)json.recognized[2].ToString());
                     break;
