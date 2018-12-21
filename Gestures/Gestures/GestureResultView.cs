@@ -26,6 +26,12 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
 
         /// <summary> Image to show when the body associated with the GestureResultView object is not being tracked </summary>
         private readonly ImageSource notTrackedImage = new BitmapImage(new Uri(@"Images\NotTracked.png", UriKind.Relative));
+        private readonly ImageSource HotelImage = new BitmapImage(new Uri(@"Images\Hotel.jpg", UriKind.Relative));
+        private readonly ImageSource FlightImage = new BitmapImage(new Uri(@"Images\Flight.jpg", UriKind.Relative));
+        private readonly ImageSource ByeImage = new BitmapImage(new Uri(@"Images\Bye.jpg", UriKind.Relative));
+        private readonly ImageSource SelectImage = new BitmapImage(new Uri(@"Images\Select.jpg", UriKind.Relative));
+        private readonly ImageSource DownImage = new BitmapImage(new Uri(@"Images\Down.jpg", UriKind.Relative));
+        private readonly ImageSource UpImage = new BitmapImage(new Uri(@"Images\Up.jpg", UriKind.Relative));
 
         /// <summary> Array of brush colors to use for a tracked body; array position corresponds to the body colors used in the KinectBodyView class </summary>
         private readonly Brush[] trackedColors = new Brush[] { Brushes.Red, Brushes.Orange, Brushes.Green, Brushes.Blue, Brushes.Indigo, Brushes.Violet };
@@ -137,7 +143,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             get
             {
                 return this.detected;
-            }
+            }                                                                                                                                                                
 
             private set
             {
@@ -216,16 +222,32 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                     this.Confidence = detectionConfidence;
                     if (gestureName.Equals("Hotel"))
                     {
-                        this.ImageSource = this.seatedImage;
+                        this.ImageSource = this.HotelImage;
                     }
-                    if (gestureName.Equals("flight"))
+                    if (gestureName.Equals("Flight"))
                     {
-                        this.ImageSource = this.notTrackedImage;
+                        this.ImageSource = this.FlightImage;
+                    }
+                    if (gestureName.Equals("Select"))
+                    {
+                        this.ImageSource = this.SelectImage;
+                    }
+                    if (gestureName.Equals("Up_Right"))
+                    {
+                        this.ImageSource = this.UpImage;
+                    }
+                    if (gestureName.Equals("Down_Left"))
+                    {
+                        this.ImageSource = this.DownImage;
+                    }
+                    if (gestureName.Equals("Bye"))
+                    {
+                        this.ImageSource = this.ByeImage;
                     }
                 }
                 else
                 {
-                    this.ImageSource = this.notSeatedImage;
+                    this.ImageSource = this.notTrackedImage;
                 }
             }
         }

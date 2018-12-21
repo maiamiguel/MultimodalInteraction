@@ -158,6 +158,12 @@
     <Content Include="Database\Seated.gbd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\Bye.jpg" />
+    <Resource Include="Images\Down.jpg" />
+    <Resource Include="Images\Flight.jpg" />
+    <Resource Include="Images\Hotel.jpg" />
+    <Resource Include="Images\Select.jpg" />
+    <Resource Include="Images\Up.jpg" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
