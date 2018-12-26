@@ -193,9 +193,7 @@ C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\bin\Debug\speechModality.pdb
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\bin\Debug\Microsoft.Speech.dll
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\bin\Debug\WebDriver.dll
-C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\bin\Debug\mmisharp.pdb
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\bin\Debug\WebDriver.xml
-C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\obj\Debug\speechModality.csprojAssemblyReference.cache
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\obj\Debug\MainWindow.g.cs
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\obj\Debug\App.g.cs
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\obj\Debug\speechModality_Content.g.cs
@@ -209,3 +207,4 @@ C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\obj\Debug\speechModality.csproj.CopyComplete
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\obj\Debug\speechModality.exe
 C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\obj\Debug\speechModality.pdb
+C:\Users\Miguel\Desktop\ECT\5_Ano\IM\MultimodalInteraction\Speech\speechModality\speechModality\obj\Debug\speechModality.csprojAssemblyReference.cache

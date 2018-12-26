@@ -24,11 +24,11 @@
             <tag>out.close=rules.latest()</tag>
         </item>
         <item>
-            <ruleref uri="#option"/>
-            <tag>out.option=rules.latest()</tag>
+            <ruleref uri="#confirmation"/>
         </item>
         <item>
-            <ruleref uri="#confirmation"/>
+            <ruleref uri="#maxit"/>
+            <tag>out.max=rules.latest()</tag>
         </item>
         <item>
             <item>
@@ -52,6 +52,14 @@
     <tag>out="SEARCH"</tag>
   </rule>
   
+  <rule id="maxit">
+    <one-of>
+      <item>maximizar</item>
+      <item>maximiza</item>
+    </one-of>
+    <tag>out="MAX"</tag>
+  </rule>
+  
   <rule id="filter">
     <one-of>
       <item>filtrar hotéis por </item>
@@ -61,14 +69,11 @@
   
   <rule id="filterType">
     <one-of>
-      <item>ar condicionado<tag>out="AC"</tag></item>
-      <item>vinte e quatro horas check in<tag>out="CI"</tag></item>
-      <item>wifi<tag>out="NET"</tag></item>
-      <item>restaurante<tag>out="FOOD"</tag></item>
-      <item>bar<tag>out="BAR"</tag></item>
-      <item>ginásio<tag>out="GYM"</tag></item>
-      <item>coffee shop<tag>out="CS"</tag></item>
-      <item>piscina<tag>out="POOL"</tag></item>
+      <item>cinco estrelas<tag>out="S5"</tag></item>
+      <item>quatro estrelas<tag>out="S4"</tag></item>
+      <item>três estrelas<tag>out="S3"</tag></item>
+      <item>duas estrelas<tag>out="S2"</tag></item>
+      <item>uma estrela<tag>out="S1"</tag></item>
     </one-of>
   </rule>
   
@@ -92,7 +97,6 @@
 	  <one-of>
 		  <item>Roma<tag>out="ROME"</tag></item>
 		  <item>Paris<tag>out="PARIS"</tag></item>
-      <item>Londres<tag>out="LONDON"</tag></item>
 	  </one-of>
 	</rule>
   
@@ -108,7 +112,7 @@
       <item>Sair</item>
       <item>Vou sair</item>
       <item>Chega</item>
-      <item>Até logo></item>
+      <item>Até logo</item>
     </one-of>
     <tag>out="CLOSE"</tag>
   </rule>
@@ -122,14 +126,6 @@
 	  </one-of>
     <tag>out.action="HELP"</tag>
 	</rule>
-
-  <rule id="option">
-    <one-of>
-      <item>Um adulto<tag>out="O1"</tag></item>
-      <item>Dois adulto<tag>out="O2"</tag></item>
-      <item>Três adulto<tag>out="O3"</tag></item>
-    </one-of>
-  </rule>
   
   <rule id="confirmation">
       <item>

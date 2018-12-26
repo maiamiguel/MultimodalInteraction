@@ -11,7 +11,6 @@ using System.Drawing;
 using System.Windows.Threading;
 using System.Windows.Media;
 
-
 namespace speechModality
 {
     public class SpeechMod{
@@ -136,7 +135,7 @@ namespace speechModality
             // if confidence is between 40% and 60%
             if (e.Result.Confidence <= 0.6)
             {
-                Speak("Desculpa, não consegui entender. Importas-te de repetir se faz favor?", 5);
+                Speak("Desculpa, não consegui entender. Repete por favor..", 5);
                 return;
             }
 
@@ -213,6 +212,12 @@ namespace speechModality
                         }
                         json = json.Substring(0, json.Length - 2);
                         json += "] }";
+
+                        var exNot2 = lce.ExtensionNotification(e.Result.Audio.StartTime + "", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration) + "", e.Result.Confidence, json);
+                        mmic.Send(exNot2);
+
+                        Console.WriteLine("EXITING PROGRAM!");
+                        Environment.Exit(0);
                         break;
                     case "NO":
                         pendingSemantic = null;

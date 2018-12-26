@@ -18,24 +18,15 @@ namespace AppGui
         private static Actions action;
         private static Boolean firstFlightSearch = true;
         private static Boolean firstHotelSearch = true;
-        private static string travellers;
 
-        public static void AcceptCommand(String type, String city){
-            Console.WriteLine("Tipo -> " + type + "     city ->   " + city);
-
+        public static void AcceptCommand(String type, String city)
+        {
             if (firstTime)
             {
                 driver = new ChromeDriver();
                 //driver.Manage().Window.Maximize();
                 //driver.Manage().Timeouts().ImplicitWait.Add(TimeSpan.FromSeconds(30));
                 firstTime = false;
-            }
-
-            if (type == "CLOSE")
-            {
-                Console.WriteLine("FECHAR O BROWSER!");
-                driver.Close();
-                firstTime = true;
             }
 
             if (type == "FLIGHT")
@@ -65,15 +56,6 @@ namespace AppGui
                         driver.FindElement(By.Id("ToTag")).Clear();
                         driver.FindElement(By.Id("ToTag")).SendKeys("Paris, FR - Charles De Gaulle (CDG)");
                         break;
-
-                    case "LONDON":
-                        // send source (default)
-                        driver.FindElement(By.Id("FromTag")).Clear();
-                        driver.FindElement(By.Id("FromTag")).SendKeys("Lisbon, PT - Lisboa (LIS)");
-                        // send destination
-                        driver.FindElement(By.Id("ToTag")).Clear();
-                        driver.FindElement(By.Id("ToTag")).SendKeys("London, GB - All airports (LON)");
-                        break;
                 }
 
                 // click depart box
@@ -89,7 +71,7 @@ namespace AppGui
                 // click search button
                 driver.FindElement(By.Id("SearchBtn")).Click();
             }
-            else if(type == "HOTEL")
+            else if (type == "HOTEL")
             {
                 // go to home page
                 driver.Navigate().GoToUrl("https://www.cleartrip.com/");
@@ -99,8 +81,6 @@ namespace AppGui
                 driver.FindElement(By.XPath("//*[@id='countryForm']/li[8]/a")).Click();
                 // click hotels link
                 driver.FindElement(By.XPath("//*[@id='Home']/div/aside[1]/nav/ul[1]/li[2]/a")).Click();
-                // select € currency
-                driver.FindElement(By.XPath("//*[@id='countryForm']/li[8]/a")).Click();
 
                 switch (city)
                 {
@@ -122,30 +102,10 @@ namespace AppGui
                         // press Enter key
                         action.SendKeys(Keys.Enter).Build().Perform();
                         break;
-
                     case "PARIS":
                         // send destination
                         driver.FindElement(By.Name("from")).Click();
                         driver.FindElement(By.Name("from")).SendKeys("Paris");
-                        // sleep 3 seconds
-                        Thread.Sleep(3000);
-                        // instantiate action object to press keys
-                        action = new Actions(driver);
-                        // we need to first press Down and Up keys, otherwise it won't work
-                        action.SendKeys(Keys.Down).Build().Perform();
-                        // sleep 3 seconds
-                        Thread.Sleep(3000);
-                        action.SendKeys(Keys.Up).Build().Perform();
-                        // sleep 3 seconds
-                        Thread.Sleep(3000);
-                        // press Enter key
-                        action.SendKeys(Keys.Enter).Build().Perform();
-                        break;
-
-                    case "LONDON":
-                        // send destination
-                        driver.FindElement(By.Name("from")).Click();
-                        driver.FindElement(By.Name("from")).SendKeys("London");
                         // sleep 3 seconds
                         Thread.Sleep(3000);
                         // instantiate action object to press keys
@@ -186,30 +146,24 @@ namespace AppGui
                 // click search button
                 driver.FindElement(By.Id("SearchHotelsButton")).Click();
             }
-
             if (type == "FILTER")
             {
-                if (city == "AC")
+                if (city == "S1")
                 {
-                    Console.WriteLine("Ar condicionado");
-                    driver.FindElement(By.ClassName("filters__more"));
-                    driver.FindElement(By.XPath("//*[@id='1_1amWIFI']/div")).Click();
+                    Console.WriteLine("1 ESTRELA!!!");
+                    //driver.FindElement(By.ClassName("filters__more"));
+                    driver.FindElement(By.XPath("(//*[@id='starFilter']/label[1]")).Click();
                 }
             }
-
-            if (type == "O1")
+            if (type == "MAX")
             {
-                travellers = "O1";
+                Console.WriteLine("MAXIMIZAR!");
+                driver.Manage().Window.Maximize();
             }
-
-            if (type == "O2")
+            if (type == "CLOSE")
             {
-                travellers = "O2";
-            }
-
-            if (type == "O3")
-            {
-                travellers = "O3";
+                driver.Close();
+                Environment.Exit(0);
             }
         }
     }
