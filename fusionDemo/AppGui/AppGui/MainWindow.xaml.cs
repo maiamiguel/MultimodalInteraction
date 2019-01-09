@@ -1,78 +1,86 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using mmisharp;
 using Newtonsoft.Json;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 
 namespace AppGui
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private MmiCommunication mmiC;
+
         public MainWindow()
         {
-            InitializeComponent();
-
-
             mmiC = new MmiCommunication("localhost",8000, "User1", "GUI");
             mmiC.Message += MmiC_Message;
             mmiC.Start();
-
         }
 
         private void MmiC_Message(object sender, MmiEventArgs e)
         {
-            Console.WriteLine(e.Message);
             var doc = XDocument.Parse(e.Message);
             var com = doc.Descendants("command").FirstOrDefault().Value;
             dynamic json = JsonConvert.DeserializeObject(com);
 
-            Shape _s = null;
+            // Print json recognized
+            Console.WriteLine("json: " + json);
 
-            // { "recognized": ["shape","SQUARE", "color","GREEN"] }</command>
+            // Get first command
+            String _s = (string)json.recognized[0].ToString();
 
-            //json.recognized
-
-            switch (json.recognized[1].ToString()) // (json.shape.ToString())
+            switch (_s)
             {
-                case "SQUARE": _s = rectangle;
+                case "O1":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
                     break;
-                case "CIRCLE": _s = circle;
+
+                case "O2":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
                     break;
-                case "TRIANGLE": _s = triangle;
+
+                case "O3":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
+                case "M1":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
+                case "M2":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
+                case "M3":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
+                case "SEARCH":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
+                    Console.WriteLine("SEARCH command received!");
+                    break;
+
+                case "CLOSE":
+                    //Close the browser
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
+                    break;
+
+                case "FLIGHT":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
+                    Console.WriteLine("FLIGHT command received!");
+                    break;
+
+                case "HOTEL":
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
+                    Console.WriteLine("HOTEL command received!");
                     break;
             }
-
-            App.Current.Dispatcher.Invoke(() =>
-            {
-                switch (json.recognized[3].ToString()) // (json.shape.ToString())
-
-                //switch (json.color.ToString())
-                {
-                    case "GREEN":
-                        _s.Fill = Brushes.Green;
-                        break;
-                    case "BLUE":
-                        _s.Fill = Brushes.Blue;
-                        break;
-                    case "RED":
-                        _s.Fill = Brushes.Red;
-                        break;
-                    case "YELLOW":
-                        _s.Fill = Brushes.Yellow;
-                        break;
-
-                }
-            });
-            
-
-
         }
     }
 }
