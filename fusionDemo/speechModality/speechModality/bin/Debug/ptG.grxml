@@ -2,38 +2,161 @@
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
 	<rule id="rootRule" scope="public">
     <one-of>
-      <item>
-      <item>
-        <ruleref uri="#object"/>
-        <tag>out.shape=rules.latest();</tag>
-      </item>
-      <item>
-        <ruleref uri="#color"/>
-        <tag>out.color=rules.latest();</tag>
-      </item>
-      </item>
-      <item>
-        <ruleref uri="#object"/>
-        <tag>out.shape=rules.latest();</tag>
-      </item>
+        <item>
+            <item>
+			          <ruleref uri="#search"/>
+			          <tag>out.search=rules.latest();</tag>
+		        </item>
+            <item>
+			          <ruleref uri="#type"/>
+			          <tag>out.type=rules.latest();</tag>
+		        </item>
+		        <item>
+			          <ruleref uri="#city"/>
+			          <tag>out.city=rules.latest();</tag>
+		        </item>
+        </item>
+        <item>
+            <ruleref uri="#help"/>
+        </item>
+        <item>
+            <ruleref uri="#close"/>
+            <tag>out.close=rules.latest()</tag>
+        </item>
+        <item>
+            <ruleref uri="#confirmation"/>
+        </item>
+        <item>
+            <ruleref uri="#maxit"/>
+            <tag>out.max=rules.latest()</tag>
+        </item>
+        <item>
+            <item>
+			          <ruleref uri="#filter"/>
+			          <tag>out.filter=rules.latest();</tag>
+		        </item>
+            <item>
+			          <ruleref uri="#filterType"/>
+			          <tag>out.filterType=rules.latest();</tag>
+		        </item>
+        </item>
     </one-of>
 	</rule>
-	<rule id="object">
+
+  <rule id="search">
+    <one-of>
+      <item>pesquisar</item>
+      <item>pesquisa</item>
+      <item>quero pesquisar</item>
+    </one-of>
+    <tag>out="SEARCH"</tag>
+  </rule>
+  
+  <rule id="maxit">
+    <one-of>
+      <item>maximizar</item>
+      <item>maximiza</item>
+    </one-of>
+    <tag>out="MAX"</tag>
+  </rule>
+  
+  <rule id="filter">
+    <one-of>
+      <item>filtrar hotéis por </item>
+    </one-of>
+    <tag>out="FILTER"</tag>
+  </rule>
+  
+  <rule id="filterType">
+    <one-of>
+      <item>cinco estrelas<tag>out="S5"</tag></item>
+      <item>quatro estrelas<tag>out="S4"</tag></item>
+      <item>três estrelas<tag>out="S3"</tag></item>
+      <item>duas estrelas<tag>out="S2"</tag></item>
+      <item>uma estrela<tag>out="S1"</tag></item>
+    </one-of>
+  </rule>
+  
+  <rule id="type">
 	  <one-of>
-		<item>quadrado<tag>out="SQUARE"</tag></item>
-		<item>círculo<tag>out="CIRCLE"</tag></item>
-		<item>triângulo<tag>out="TRIANGLE"</tag></item>
+		  <item>voos em<tag>out="FLIGHT"</tag></item>
+      <item>voos para<tag>out="FLIGHT"</tag></item>
+		  <item>voo para<tag>out="FLIGHT"</tag></item>
+		  <item>hotéis em<tag>out="HOTEL"</tag></item>
+      <item>hotéis para<tag>out="HOTEL"</tag></item>
+      <item>Hotel para<tag>out="HOTEL"</tag></item>
+      <item>Hotel em<tag>out="HOTEL"</tag></item>
+      <item>alojamento<tag>out="HOTEL"</tag></item>
+      <item>alojamento em<tag>out="HOTEL"</tag></item>
+      <item>estadia em<tag>out="HOTEL"</tag></item>
+      <item>estadia<tag>out="HOTEL"</tag></item>
 	  </one-of>
 	</rule>
-	<rule id="color">
+  
+	<rule id="city">
 	  <one-of>
-		<item>verde<tag>out="GREEN"</tag></item>
-		<item>azul<tag>out="BLUE"</tag></item>
-		<item>vermelho<tag>out="RED"</tag></item>
-      <item>
-        amarelo<tag>out="YELLOW"</tag>
-      </item>
-
-    </one-of>
+		  <item>Roma<tag>out="ROME"</tag></item>
+		  <item>Paris<tag>out="PARIS"</tag></item>
+	  </one-of>
 	</rule>
+  
+  <rule id="close">
+    <one-of>
+      <item>Fechar o browser</item>
+      <item>Fecha</item>
+      <item>Fechar</item>
+      <item>Fecha o browser</item>
+      <item>Xau</item>
+      <item>Adeus</item>
+      <item>Obrigado, adeus</item>
+      <item>Sair</item>
+      <item>Vou sair</item>
+      <item>Chega</item>
+      <item>Até logo</item>
+    </one-of>
+    <tag>out="CLOSE"</tag>
+  </rule>
+  
+  <rule id="help">
+	  <one-of>
+		<item>Ajuda-me</item>
+		<item>Vamos viajar</item>
+		<item>Preciso de ajuda</item>
+    <item>Quero ajuda</item>
+	  </one-of>
+    <tag>out.action="HELP"</tag>
+	</rule>
+  
+  <rule id="confirmation">
+      <item>
+        <one-of>
+          <item>
+            <one-of>
+              <item>Sim</item>
+              <item>Ok</item>
+              <item>Sim, tenho</item>
+              <item>Quero, sim</item>
+              <item>Claro</item>
+              <item>Claro que sim</item>
+              <item>Com certeza</item>
+              <item>Pode ser</item>
+              <item>Está bem</item>
+            </one-of>
+            <tag>out.action="YES"</tag>
+          </item>
+          <item>
+            <one-of>
+              <item>Não</item>
+              <item>Não quero</item>
+              <item>Não, não quero</item>
+              <item>Claro que não</item>
+              <item>Nem pensar</item>
+              <item>Nada disso</item>
+            </one-of>
+            <tag>out.action="NO"</tag>
+          </item>
+        </one-of>
+      </item>
+  </rule>
+
 </grammar>

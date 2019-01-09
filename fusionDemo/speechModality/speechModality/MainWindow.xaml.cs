@@ -20,22 +20,34 @@ namespace speechModality
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        public static Boolean assistantSpeakingFlag = true;
         private SpeechMod _sm;
         public MainWindow()
         {
             InitializeComponent();
 
-            _sm = new SpeechMod();
+            _sm = new SpeechMod(circle, this.Dispatcher);
             _sm.Recognized += _sm_Recognized;
+
         }
 
         private void _sm_Recognized(object sender, SpeechEventArg e)
         {
             result.Text = e.Text;
-            confidence.Text = e.Confidence+"";
+            confidence.Text = e.Confidence + "";
             if (e.Final) result.FontWeight = FontWeights.Bold;
             else result.FontWeight = FontWeights.Normal;
+            /*
+            this.Dispatcher.Invoke(() =>
+            {
+                if (e.AssistantSpeaking){
+                    circle.Fill = Brushes.Red;
+                }
+                else {
+                    circle.Fill = Brushes.Green;
+                }
+            });
+            */
         }
     }
 }
