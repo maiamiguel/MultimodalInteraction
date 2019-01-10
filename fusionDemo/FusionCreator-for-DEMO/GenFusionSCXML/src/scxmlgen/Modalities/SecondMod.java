@@ -15,16 +15,15 @@ public enum SecondMod implements IModality{
     SELECT("[SELECT]",1500),
     UP("[UP]",1500),
     DOWN("[DOWN]",1500),
-    FLIGHT_ROME("[FLIGHT_ROME]",1500),
-    FLIGHT_PARIS("[FLIGHT_PARIS]",1500),
-    FLIGHT_LONDON("[FLIGHT_LONDON]",1500),
-    HOTEL_ROME("[HOTEL_ROME]",1500),
-    HOTEL_PARIS("[HOTEL_PARIS]",1500),
-    HOTEL_LONDON("[HOTEL_LONDON]",1500),
+    FLIGHT_ROME("[FLIGHT][ROME]",1500),
+    FLIGHT_PARIS("[FLIGHT][PARIS]",1500),
+    FLIGHT_LONDON("[FLIGHT][LONDON]",1500),
+    HOTEL_ROME("[HOTEL][ROME]",1500),
+    HOTEL_PARIS("[HOTEL][PARIS]",1500),
+    HOTEL_LONDON("[HOTEL][LONDON]",1500),
     M1("[M1]",1500),
     M2("[M2]",1500),
     CLOSE("[CLOSE]",1500);
-    
     
     private String event;
     private int timeout;

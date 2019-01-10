@@ -11,17 +11,17 @@ public enum Speech implements IModality {
     /*SQUARE("[shape][SQUARE]",1500),
     TRIANGLE("[shape][TRIANGLE]",1500),
     CIRCLE("[shape][CIRCLE]",1500);*/
-    /*SHR("[SEARCH][HOTEL][ROME]",1500),
-    SHP("[SEARCH][HOTEL][PARIS]",1500),
-    SFR("[SEARCH][FLIGHT][ROME]",1500),
-    SFP("[SEARCH][FLIGHT][PARIS]",1500),*/
-    
+
+    SEARCH_FLIGHT_ROME("[SEARCH][FLIGHT][ROME]", 1500),
+    SEARCH_FLIGHT_PARIS("[SEARCH][FLIGHT][PARIS]", 1500),
+    SEARCH_HOTEL_ROME("[SEARCH][HOTEL][ROME]", 1500),
+    SEARCH_HOTEL_PARIS("[SEARCH][HOTEL][PARIS]", 1500),    
     ROME("[ROME]",1500),
     PARIS("[PARIS]",1500),
     YES("[YES]",1500),
     NO("[NO]",1500),
     HELP("[HELP]",1500),
-    CLOSE("[CLOSE]",1500),
+    CLOSE("[CLOSE]",1500);
     UP("[UP]",1500), // not implemented yet
     DOWN("[DOWN]",1500); // not implemented yet
         

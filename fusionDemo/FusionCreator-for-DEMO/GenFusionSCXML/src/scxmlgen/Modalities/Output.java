@@ -15,26 +15,31 @@ public enum Output implements IOutput {
     CIRCLE_YELLOW("[shape][CIRCLE][color][YELLOW]"),
     CIRCLE("[shape][CIRCLE]");*/
     
+    //SPEECH
+
+    SEARCH_FLIGHT_ROME("[SEARCH][FLIGHT][ROME]", 1500),
+    SEARCH_FLIGHT_PARIS("[SEARCH][FLIGHT][PARIS]", 1500),
+    SEARCH_HOTEL_ROME("[SEARCH][HOTEL][ROME]", 1500),
+    SEARCH_HOTEL_PARIS("[SEARCH][HOTEL][PARIS]", 1500),
     HELP("[HELP]"),
     CLOSE("[CLOSE]"),
     UP("[UP]"),
     DOWN("[DOWN]"),
     YES("[YES]"),
     NO("[NO]"),
+
+    //GESTURES
+    
     M1_ROME("[M1][ROME]"),
     M1_PARIS("[M1][PARIS]"),
     M2_ROME("[M2][ROME]"),
     M2_PARIS("[M2][PARIS]"),
-    /*SHR("[SEARCH][HOTEL][ROME]"),
-    SHP("[[SEARCH][HOTEL][PARIS]]"),
-    SFR("[SEARCH][FLIGHT][ROME]"),
-    SFP("[SEARCH][FLIGHT][PARIS]"),*/
-    FLIGHT_ROME("[FLIGHT_ROME]"),
-    FLIGHT_PARIS("[FLIGHT_PARIS]"),
-    FLIGHT_LONDON("[FLIGHT_LONDON]"),
-    HOTEL_ROME("[HOTEL_ROME]"),
-    HOTEL_PARIS("[HOTEL_PARIS]"),
-    HOTEL_LONDON("[HOTEL_LONDON]"),
+    SEARCH_FLIGHT_ROME("[FLIGHT][ROME]"),
+    FLIGHT_PARIS("[FLIGHT][PARIS]"),
+    FLIGHT_LONDON("[FLIGHT][LONDON]"),
+    HOTEL_ROME("[HOTEL][ROME]"),
+    HOTEL_PARIS("[HOTEL][PARIS]"),
+    HOTEL_LONDON("[HOTEL][LONDON]"),
     M1("[M1]"),
     M2("[M2]");
     
