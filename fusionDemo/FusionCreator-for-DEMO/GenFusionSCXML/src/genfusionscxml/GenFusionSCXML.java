@@ -63,11 +63,12 @@ public class GenFusionSCXML {
     fg.Single(SecondMod.ZOOM, Output.ZOOM);
     
     // Redundancy
-    fg.Redundancy(Speech.SEARCH_FLIGHT_ROME, SecondMod.FLIGHT_ROME, Output.SEARCH_FLIGHT_ROME)
-    fg.Redundancy(Speech.SEARCH_FLIGHT_PARIS, SecondMod.FLIGHT_PARIS, Output.SEARCH_FLIGHT_PARIS)
-    fg.Redundancy(Speech.SEARCH_HOTEL_PARIS, SecondMod.HOTEL_PARIS, Output.SEARCH_HOTEL_PARIS)
-    fg.Redundancy(Speech.SEARCH_HOTEL_ROME, SecondMod.HOTEL_ROME, Output.SEARCH_HOTEL_ROME)
-    fg.Redundancy(Speech.MAX, SecondMod.ZOOM, Output.MAX)
+    fg.Redundancy(Speech.SEARCH_FLIGHT_ROME, SecondMod.FLIGHT_ROME, Output.SEARCH_FLIGHT_ROME);
+    fg.Redundancy(Speech.SEARCH_FLIGHT_PARIS, SecondMod.FLIGHT_PARIS, Output.SEARCH_FLIGHT_PARIS);
+    fg.Redundancy(Speech.SEARCH_HOTEL_PARIS, SecondMod.HOTEL_PARIS, Output.SEARCH_HOTEL_PARIS);
+    fg.Redundancy(Speech.SEARCH_HOTEL_ROME, SecondMod.HOTEL_ROME, Output.SEARCH_HOTEL_ROME);
+    fg.Redundancy(Speech.MAX, SecondMod.ZOOM, Output.MAX);
+    fg.Redundancy(Speech.CLOSE, SecondMod.CLOSE, Output.CLOSE);
 
     // Complementarity
     fg.Complementary(SecondMod.M1, Speech.ROME, Output.M1_ROME);
