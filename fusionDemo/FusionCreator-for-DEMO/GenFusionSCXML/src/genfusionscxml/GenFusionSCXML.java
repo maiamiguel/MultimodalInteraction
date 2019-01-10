@@ -46,6 +46,7 @@ public class GenFusionSCXML {
     fg.Single(Speech.CLOSE, Output.CLOSE);
     fg.Single(Speech.YES, Output.YES);
     fg.Single(Speech.NO, Output.NO);
+    fg.Single(Speech.MAX, Output.MAX);
     //fg.Single(Speech.UP, Output.UP); // not implemented yet
     //fg.Single(Speech.DOWN, Output.DOWN); // not implemented yet
     
@@ -59,20 +60,24 @@ public class GenFusionSCXML {
     fg.Single(SecondMod.M1, Output.M1);
     fg.Single(SecondMod.M2, Output.M2);
     fg.Single(SecondMod.CLOSE, Output.CLOSE);
+    fg.Single(SecondMod.ZOOM, Output.ZOOM);
     
     // Redundancy
-    fg.Redundancy(Speech.DOWN, SecondMod.DOWN, Output.DOWN);
-    fg.Redundancy(Speech.UP, SecondMod.UP, Output.UP);
-    fg.Redundancy(Speech.SEARCH, SecondMod.FLIGHT_ROME, Output.SEARCH_FLIGHT_ROME)
+    fg.Redundancy(Speech.SEARCH_FLIGHT_ROME, SecondMod.FLIGHT_ROME, Output.SEARCH_FLIGHT_ROME)
+    fg.Redundancy(Speech.SEARCH_FLIGHT_PARIS, SecondMod.FLIGHT_PARIS, Output.SEARCH_FLIGHT_PARIS)
+    fg.Redundancy(Speech.SEARCH_HOTEL_PARIS, SecondMod.HOTEL_PARIS, Output.SEARCH_HOTEL_PARIS)
+    fg.Redundancy(Speech.SEARCH_HOTEL_ROME, SecondMod.HOTEL_ROME, Output.SEARCH_HOTEL_ROME)
+    fg.Redundancy(Speech.MAX, SecondMod.ZOOM, Output.MAX)
 
     // Complementarity
     fg.Complementary(SecondMod.M1, Speech.ROME, Output.M1_ROME);
     fg.Complementary(SecondMod.M1, Speech.PARIS, Output.M1_PARIS);
+    fg.Complementary(SecondMod.M1, Speech.LONDON, Output.M1_LONDON);
     fg.Complementary(SecondMod.M2, Speech.ROME, Output.M2_ROME);
     fg.Complementary(SecondMod.M2, Speech.PARIS, Output.M2_PARIS);
+    fg.Complementary(SecondMod.M2, Speech.LONDON, Output.M1_LONDON);
     
     fg.Build("fusion.scxml");
         
     }
-    
 }

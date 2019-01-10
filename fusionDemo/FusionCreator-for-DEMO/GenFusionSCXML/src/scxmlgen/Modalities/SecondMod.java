@@ -23,6 +23,7 @@ public enum SecondMod implements IModality{
     HOTEL_LONDON("[HOTEL][LONDON]",1500),
     M1("[M1]",1500),
     M2("[M2]",1500),
+    ZOOM("[ZOOM]", 1500),
     CLOSE("[CLOSE]",1500);
     
     private String event;

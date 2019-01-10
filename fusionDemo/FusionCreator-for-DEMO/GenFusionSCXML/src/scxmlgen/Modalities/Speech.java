@@ -14,16 +14,20 @@ public enum Speech implements IModality {
 
     SEARCH_FLIGHT_ROME("[SEARCH][FLIGHT][ROME]", 1500),
     SEARCH_FLIGHT_PARIS("[SEARCH][FLIGHT][PARIS]", 1500),
+    SEARCH_FLIGHT_PARIS("[SEARCH][FLIGHT][LONDON]", 1500),
     SEARCH_HOTEL_ROME("[SEARCH][HOTEL][ROME]", 1500),
-    SEARCH_HOTEL_PARIS("[SEARCH][HOTEL][PARIS]", 1500),    
+    SEARCH_HOTEL_PARIS("[SEARCH][HOTEL][PARIS]", 1500),
+    SEARCH_HOTEL_PARIS("[SEARCH][HOTEL][LONDON]", 1500),
     ROME("[ROME]",1500),
     PARIS("[PARIS]",1500),
+    LONDON("[LONDON]",1500),
     YES("[YES]",1500),
     NO("[NO]",1500),
     HELP("[HELP]",1500),
-    CLOSE("[CLOSE]",1500);
+    CLOSE("[CLOSE]",1500),
     UP("[UP]",1500), // not implemented yet
-    DOWN("[DOWN]",1500); // not implemented yet
+    DOWN("[DOWN]",1500), // not implemented yet
+    MAX("[MAX]", 1500);
         
 
     private String event; 

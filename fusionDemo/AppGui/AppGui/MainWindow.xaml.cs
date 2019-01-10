@@ -37,32 +37,8 @@ namespace AppGui
 
             switch (_s)
             {
-                case "O1":
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
-                    break;
-
-                case "O2":
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
-                    break;
-
-                case "O3":
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
-                    break;
-
-                case "M1":
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
-                    break;
-
-                case "M2":
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
-                    break;
-
-                case "M3":
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), null);
-                    break;
-
                 case "SEARCH":
-                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
+                    ProcessingCommandFunctions.AcceptCommand((string)json.recognized[1].ToString(), (string)json.recognized[2].ToString());
                     Console.WriteLine("SEARCH command received!");
                     break;
 
@@ -79,6 +55,13 @@ namespace AppGui
                 case "HOTEL":
                     ProcessingCommandFunctions.AcceptCommand((string)json.recognized[0].ToString(), (string)json.recognized[1].ToString());
                     Console.WriteLine("HOTEL command received!");
+                    break;
+
+                case "MAX":
+                    ProcessingCommandFunctions.AcceptCommand("ZOOM", null);
+                    break;
+                case "ZOOM":
+                    ProcessingCommandFunctions.AcceptCommand("ZOOM", null);
                     break;
             }
         }
