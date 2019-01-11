@@ -31,12 +31,12 @@ public enum Output implements IOutput {
 
     //GESTURES
     
-    M1_ROME("[M1][ROME]"),
-    M1_PARIS("[M1][PARIS]"),
-    M1_LONDON("[M1][LONDON]"),
-    M2_ROME("[M2][ROME]"),
-    M2_PARIS("[M2][PARIS]"),
-    M2_LONDON("[M2][LONDON]"),
+    M1_ROME("[HOTEL][ROME]"),
+    M1_PARIS("[HOTEL][PARIS]"),
+    M1_LONDON("[HOTEL][LONDON]"),
+    M2_ROME("[FLIGHT][ROME]"),
+    M2_PARIS("[FLIGHT][PARIS]"),
+    M2_LONDON("[FLIGHT][LONDON]"),
     FLIGHT_ROME("[FLIGHT][ROME]"),
     FLIGHT_PARIS("[FLIGHT][PARIS]"),
     FLIGHT_LONDON("[FLIGHT][LONDON]"),
