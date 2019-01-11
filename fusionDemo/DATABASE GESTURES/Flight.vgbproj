@@ -2,8 +2,8 @@
 <GestureBuilderFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ProjectFile>
 		<Header>
-			<Date>2018-12-13</Date>
-			<Time>21:57:58.2992380+00:00</Time>
+			<Date>2019-01-11</Date>
+			<Time>14:24:44.6317475+00:00</Time>
 			<Version>5</Version>
 			<Type>AdaBoostTrigger</Type>
 			<Function>
@@ -22,37 +22,31 @@
 				<Name />
 				<Content>
 					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181129_111913_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20181129_111913_00.vgbclip</File>
 					</Items>
 					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181129_112625_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20181129_112625_00.vgbclip</File>
 					</Items>
 					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181129_113211_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20181129_113211_00.vgbclip</File>
 					</Items>
 					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181129_113622_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20181129_113622_00.vgbclip</File>
 					</Items>
 					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181129_114112_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20181129_114112_00.vgbclip</File>
 					</Items>
 					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181129_114432_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20181129_114432_00.vgbclip</File>
 					</Items>
 					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181129_114640_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20181129_114640_00.vgbclip</File>
 					</Items>
 					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181211_103346_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20181211_105449_00.vgbclip</File>
 					</Items>
 					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181211_105449_00.vgbclip</File>
-					</Items>
-					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181211_105558_00.vgbclip</File>
-					</Items>
-					<Items>
-						<File>../../Documents/Kinect Studio/Repository/20181213_205001_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20181211_105558_00.vgbclip</File>
 					</Items>
 				</Content>
 			</Files>

@@ -2,8 +2,8 @@
 <GestureBuilderFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<SolutionFile>
 		<Header>
-			<Date>2018-12-13</Date>
-			<Time>23:53:45.6935448+00:00</Time>
+			<Date>2019-01-11</Date>
+			<Time>14:28:30.4734109+00:00</Time>
 			<Version>1</Version>
 			<Type>Solution</Type>
 			<ID>1db6a60e-b521-4739-a59f-5e05e00368cf</ID>
@@ -35,6 +35,12 @@
 					</Items>
 					<Items>
 						<File>Hotel.a.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Maximize.vgbproj</File>
+					</Items>
+					<Items>
+						<File>Maximize.a.vgbproj</File>
 					</Items>
 					<Items>
 						<File>Select.vgbproj</File>

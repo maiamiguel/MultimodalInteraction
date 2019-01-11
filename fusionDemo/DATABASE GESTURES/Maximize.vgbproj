@@ -2,30 +2,30 @@
 <GestureBuilderFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ProjectFile>
 		<Header>
-			<Date>2019-01-10</Date>
-			<Time>18:21:26.1968584+00:00</Time>
+			<Date>2019-01-11</Date>
+			<Time>14:25:24.3217684+00:00</Time>
 			<Version>5</Version>
 			<Type>AdaBoostTrigger</Type>
 			<Function>
 				<Type>Training</Type>
-				<ProjectAttribute Name="Up_Right" Type="BOOL" />
+				<ProjectAttribute Name="Maximize" Type="BOOL" />
 				<ProjectAccompanyAttributes>
 					<Items Name="Confidence" Type="FLOAT" />
 					<Items Name="FirstFrameDetected" Type="BOOL" />
 				</ProjectAccompanyAttributes>
-				<DefaultTag xsi:type="BoolAttribute" Name="Up_Right" Value="false" />
+				<DefaultTag xsi:type="BoolAttribute" Name="Maximize" Value="false" />
 			</Function>
-			<ID>3c6bc008-2fe8-4654-a44d-9a0af0092f10</ID>
+			<ID>5157ba08-6fb2-4bf8-ac44-fa18b867925c</ID>
 		</Header>
 		<Project_Data>
 			<Files>
 				<Name />
 				<Content>
 					<Items>
-						<File>../../../../../../../Documents/Kinect Studio/Repository/20181211_105719_00.vgbclip</File>
+						<File>../../../../../../clips/20190110_164430_00.vgbclip</File>
 					</Items>
 					<Items>
-						<File>../../../../../../../Documents/Kinect Studio/Repository/20181213_204635_00.vgbclip</File>
+						<File>../../../../../../clips/20190110_164544_00.vgbclip</File>
 					</Items>
 				</Content>
 			</Files>
@@ -39,9 +39,9 @@
 			<Items xsi:type="FloatAttribute" Name="Weight Of False Positives During Auto Find" Value="0.5" MaxValue="1" MinValue="0" />
 			<Items xsi:type="IntAttribute" Name="Manual Filter Params: Num Frames To Filter" Value="5" MaxValue="10" MinValue="1" />
 			<Items xsi:type="FloatAttribute" Name="Manual Filter Params: Threshold" Value="0.001" MaxValue="1" MinValue="0" />
-			<Items xsi:type="BoolAttribute" Name="Duplicate And Mirror Data During Training" Value="false" />
+			<Items xsi:type="BoolAttribute" Name="Duplicate And Mirror Data During Training" Value="true" />
 			<Items xsi:type="IntAttribute" Name="% CPU For Training" Value="95" MaxValue="100" MinValue="1" />
-			<Items xsi:type="BoolAttribute" Name="Use Hands Data" Value="false" />
+			<Items xsi:type="BoolAttribute" Name="Use Hands Data" Value="true" />
 			<Items xsi:type="BoolAttribute" Name="Ignore Left Arm" Value="false" />
 			<Items xsi:type="BoolAttribute" Name="Ignore Right Arm" Value="false" />
 			<Items xsi:type="BoolAttribute" Name="Ignore Lower Body" Value="true" />
