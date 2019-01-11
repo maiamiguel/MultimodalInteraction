@@ -42,7 +42,7 @@ public class GenFusionSCXML {
     fg.Complementary(SecondMod.M1, Speech.LONDON, Output.M1_LONDON);
     fg.Complementary(SecondMod.M2, Speech.ROME, Output.M2_ROME);
     fg.Complementary(SecondMod.M2, Speech.PARIS, Output.M2_PARIS);
-    fg.Complementary(SecondMod.M2, Speech.LONDON, Output.M1_LONDON);
+    fg.Complementary(SecondMod.M2, Speech.LONDON, Output.M2_LONDON);
     
     fg.Build("fusion.scxml");
         
