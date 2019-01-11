@@ -16,8 +16,8 @@ namespace AppGui
         private static Boolean firstTime = true;
         private static IWebDriver driver;
         private static Actions action;
-        private static Boolean firstFlightSearch = true;
-        private static Boolean firstHotelSearch = true;
+        //private static Boolean firstFlightSearch = true;
+        //private static Boolean firstHotelSearch = true;
 
         public static void AcceptCommand(String type, String city){
             if (firstTime)
@@ -57,7 +57,7 @@ namespace AppGui
                         // send source (default)
                         driver.FindElement(By.Id("FromTag")).Clear();
                         driver.FindElement(By.Id("FromTag")).SendKeys("Lisbon, PT - Lisboa (LIS)");
-                        // send destination
+                        // send destinat2ion
                         driver.FindElement(By.Id("ToTag")).Clear();
                         driver.FindElement(By.Id("ToTag")).SendKeys("Rome, IT - Fiumicino (FCO)");
                         break;
@@ -80,16 +80,21 @@ namespace AppGui
                         break;
                 }
 
+                // get current date
+                String dt = DateTime.Today.ToString("dd-MM-yyyy");
+                String[] date = dt.Split('-');
+                String dayIn = date[0];
+
                 // click depart box
                 driver.FindElement(By.XPath("//*[@id='DepartDate']")).Click();
                 // click next month button
-                if (firstFlightSearch)
+                /*if (firstFlightSearch)
                 {
                     driver.FindElement(By.XPath("//*[@id='ui-datepicker-div']/div[2]/div/a")).Click();
                     firstFlightSearch = false;
-                }
+                }*/
                 // select depart day
-                driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr/td/a)[29]")).Click();
+                driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr/td/a)["+dayIn+"]")).Click();
                 // click search button
                 driver.FindElement(By.Id("SearchBtn")).Click();
             }
@@ -164,27 +169,35 @@ namespace AppGui
                         break;
                 }
 
+                // get current date
+                String dt = DateTime.Today.ToString("dd-MM-yyyy");
+                String[] date = dt.Split('-');
+                String dayIn = date[0];
+                // get check-out day
+                int tmp = Int32.Parse(dayIn)+3;
+                String dayOut = tmp.ToString();
+
                 // click check-in box
                 driver.FindElement(By.XPath("//*[@id='CheckInDate']")).Click();
                 // click next month button
-                if (firstHotelSearch)
+                /*if (firstHotelSearch)
                 {
                     driver.FindElement(By.XPath("//*[@id='ui-datepicker-div']/div[2]/div/a")).Click();
-                }
+                }*/
                 // select check-in day
-                driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr/td/a)[29]")).Click();
+                driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr/td/a)["+dayIn+"]")).Click();
                 // click check-out box
                 driver.FindElement(By.XPath("//*[@id='CheckOutDate']")).Click();
                 // select check-out day
-                if (firstHotelSearch)
-                {
-                    driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[2]/table/tbody/tr/td/a)[1]")).Click();
-                    firstHotelSearch = false;
-                }
-                else
+                //if (firstHotelSearch)
+                //{
+                driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr/td/a)["+dayOut+"]")).Click();
+                    //firstHotelSearch = false;
+                //}
+                /*else
                 {
                     driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr/td/a)[1]")).Click();
-                }
+                }*/
                 // click search button
                 driver.FindElement(By.Id("SearchHotelsButton")).Click();
             }
