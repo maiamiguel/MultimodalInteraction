@@ -212,7 +212,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 if (result != null)
                                 {
                                     Console.WriteLine(result.Confidence);
-                                    if (result.Confidence > 0.5)
+                                    if (result.Confidence > 0.4)
                                     {
                                         Console.WriteLine(" ZOOM GESTURE DETECTED ");
                                         SendCommand("ZOOM");
@@ -243,7 +243,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 if (result != null)
                                 {
                                     Console.WriteLine(result.Confidence);
-                                    if (result.Confidence > 0.6)
+                                    if (result.Confidence > 0.5)
                                     {
                                         Console.WriteLine(" HOTEL GESTURE DETECTED ");
                                         SendCommand("M1");
@@ -274,7 +274,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 if (result != null)
                                 {
                                     Console.WriteLine(result.Confidence);
-                                    if (result.Confidence > 0.4)
+                                    if (result.Confidence > 0.6)
                                     {
                                         Console.WriteLine(" FLIGHT GESTURE DETECTED ");
                                         SendCommand("M2");

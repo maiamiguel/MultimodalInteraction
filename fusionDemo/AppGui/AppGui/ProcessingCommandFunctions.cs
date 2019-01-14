@@ -191,7 +191,7 @@ namespace AppGui
                 // select check-out day
                 if (firstHotelSearch)
                 {
-                driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[2]/table/tbody/tr/td/a)[3]")).Click();
+                driver.FindElement(By.XPath("(//*[@id='ui-datepicker-div']/div[1]/table/tbody/tr/td/a)[3]")).Click();
                     firstHotelSearch = false;
                 }
                 else

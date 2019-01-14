@@ -181,7 +181,7 @@
     <onentry>
       <log label="[ssecondmod[m2][]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[m2][]" event="timeout-ssecondmod[m2][]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[m2][]" event="timeout-ssecondmod[m2][]" delay="2500" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[m2][]" />
     <transition target="ssecondmod[m2][]-speech[rome]" event="[ROME]" />
@@ -340,7 +340,7 @@
     <onentry>
       <log label="[ssecondmod[m1][]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[m1][]" event="timeout-ssecondmod[m1][]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[m1][]" event="timeout-ssecondmod[m1][]" delay="2500" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[m1][]" />
     <transition target="ssecondmod[m1][]-speech[rome]" event="[ROME]" />

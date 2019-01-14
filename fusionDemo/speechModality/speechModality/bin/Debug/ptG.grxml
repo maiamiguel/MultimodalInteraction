@@ -17,6 +17,12 @@
 		        </item>
         </item>
         <item>
+          <item>
+            <ruleref uri="#destination"/>
+            <tag>out.destination=rules.latest();</tag>
+          </item>
+        </item>
+        <item>
             <ruleref uri="#help"/>
         </item>
         <item>
@@ -50,6 +56,16 @@
       <item>quero pesquisar</item>
     </one-of>
     <tag>out="SEARCH"</tag>
+  </rule>
+
+  <rule id="destination">
+    <one-of>
+      <item>Londres<tag>out="LONDON"</tag></item>
+      <item>London<tag>out="LONDON"</tag></item>
+      <item>Roma<tag>out="ROME"</tag></item>
+      <item>Rome<tag>out="ROME"</tag></item>
+      <item>Paris<tag>out="PARIS"</tag></item>
+    </one-of>
   </rule>
   
   <rule id="maxit">
