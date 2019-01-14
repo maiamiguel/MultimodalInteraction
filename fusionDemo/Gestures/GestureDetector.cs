@@ -34,6 +34,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private readonly string upGestureName = "Up_Right";
         private readonly string DownGestureName = "Down_Left";
         private readonly string ByeGestureName = "Bye";
+        private readonly string ZoomGestureName = "Maximize";
 
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
@@ -203,6 +204,37 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                         // we only have one gesture in this source object, but you can get multiple gestures
                         foreach (Gesture gesture in this.vgbFrameSource.Gestures)
                         {
+                            if (gesture.Name.Equals(this.ZoomGestureName) && gesture.GestureType == GestureType.Discrete)
+                            {
+                                DiscreteGestureResult result = null;
+                                discreteResults.TryGetValue(gesture, out result);
+
+                                if (result != null)
+                                {
+                                    Console.WriteLine(result.Confidence);
+                                    if (result.Confidence > 0.5)
+                                    {
+                                        Console.WriteLine(" ZOOM GESTURE DETECTED ");
+                                        SendCommand("ZOOM");
+
+                                        detectingGesture = false;
+                                        Console.WriteLine("Kinect stoping detecting gestures.");
+
+                                        gestureTimer = new Timer(8 * 1000);
+                                        gestureTimer.Elapsed += OnGestureEnded;
+                                        gestureTimer.AutoReset = false;
+                                        gestureTimer.Enabled = true;
+
+                                        this.Dispatcher.Invoke(() =>
+                                        {
+                                            circle.Fill = System.Windows.Media.Brushes.Red;
+                                        });
+                                    }
+                                    // update the GestureResultView object with new gesture result values
+                                    this.GestureResultView.UpdateGestureResult(true, result.Detected, result.Confidence, this.ZoomGestureName);
+                                }
+                            }
+
                             if (gesture.Name.Equals(this.hotelGestureName) && gesture.GestureType == GestureType.Discrete)
                             {
                                 DiscreteGestureResult result = null;

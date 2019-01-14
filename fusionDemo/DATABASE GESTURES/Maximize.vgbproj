@@ -2,8 +2,8 @@
 <GestureBuilderFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ProjectFile>
 		<Header>
-			<Date>2019-01-11</Date>
-			<Time>14:25:24.3217684+00:00</Time>
+			<Date>2019-01-14</Date>
+			<Time>14:56:50.3300979+00:00</Time>
 			<Version>5</Version>
 			<Type>AdaBoostTrigger</Type>
 			<Function>
@@ -22,10 +22,19 @@
 				<Name />
 				<Content>
 					<Items>
-						<File>../../../../../../clips/20190110_164430_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20190114_145301_00.vgbclip</File>
 					</Items>
 					<Items>
-						<File>../../../../../../clips/20190110_164544_00.vgbclip</File>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20190114_145325_00.vgbclip</File>
+					</Items>
+					<Items>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20190114_145349_00.vgbclip</File>
+					</Items>
+					<Items>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20190114_145417_00.vgbclip</File>
+					</Items>
+					<Items>
+						<File>../../../../../../../Documents/Kinect Studio/Repository/20190114_145451_00.vgbclip</File>
 					</Items>
 				</Content>
 			</Files>
